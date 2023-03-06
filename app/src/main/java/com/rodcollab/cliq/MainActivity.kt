@@ -3,6 +3,7 @@ package com.rodcollab.cliq
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rodcollab.cliq.collections.ClientsAdapter
 import com.rodcollab.cliq.databinding.ActivityMainBinding
 import com.rodcollab.cliq.dummy.MockClients
 

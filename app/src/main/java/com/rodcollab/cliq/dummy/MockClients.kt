@@ -1,6 +1,6 @@
 package com.rodcollab.cliq.dummy
 
-import com.rodcollab.cliq.ClientItem
+import com.rodcollab.cliq.collections.ClientItem
 import com.rodcollab.cliq.core.ClientsRepository
 import java.util.*
 

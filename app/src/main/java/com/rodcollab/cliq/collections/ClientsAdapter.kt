@@ -1,21 +1,12 @@
-package com.rodcollab.cliq
+package com.rodcollab.cliq.collections
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.rodcollab.cliq.ClientsAdapter.MyViewHolder
+import com.rodcollab.cliq.collections.ClientsAdapter.MyViewHolder
 import com.rodcollab.cliq.databinding.ItemClientsBinding
-
-data class ClientItem(
-    val id: String,
-    val name: String,
-    val reference: String,
-    val address: String
-)
 
 class ClientsAdapter :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -36,23 +27,21 @@ class ClientsAdapter :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = asyncListDiffer.currentList[position]
-        holder.tvClientName.text = item.name
-        holder.tvReference.text = item.reference
+        holder.bind(clientItem = item)
     }
 
     override fun getItemCount(): Int {
         return asyncListDiffer.currentList.size
     }
 
-    class MyViewHolder(binding: ItemClientsBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemClientsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val tvClientName: TextView
-        val tvReference: TextView
-
-        init {
-            tvClientName = binding.clientName
-            tvReference = binding.clientReference
+        fun bind(clientItem: ClientItem) {
+            binding.clientName.text = clientItem.name
+            binding.clientReference.text = clientItem.reference
         }
+
     }
 
     object DiffCallback : DiffUtil.ItemCallback<ClientItem>() {
