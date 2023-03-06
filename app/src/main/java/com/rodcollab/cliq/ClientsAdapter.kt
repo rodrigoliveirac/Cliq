@@ -4,8 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rodcollab.cliq.ClientsAdapter.MyViewHolder
+import com.rodcollab.cliq.dummy.MockClients
 
 data class ClientItem(
     val id: String,
@@ -14,10 +17,16 @@ data class ClientItem(
     val address: String
 )
 
-class ClientsAdapter(private val dataSet: Array<ClientItem>) :
+class ClientsAdapter :
     RecyclerView.Adapter<MyViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientsAdapter.MyViewHolder {
+    private val asyncListDiffer: AsyncListDiffer<ClientItem> = AsyncListDiffer(this, DiffCallback)
+
+    fun submitList(list: List<ClientItem>) {
+        asyncListDiffer.submitList(list)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_clients, parent, false)
 
@@ -25,12 +34,13 @@ class ClientsAdapter(private val dataSet: Array<ClientItem>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvClientName.text = dataSet[position].name
-        holder.tvReference.text = dataSet[position].reference
+        val item = asyncListDiffer.currentList[position]
+        holder.tvClientName.text = item.name
+        holder.tvReference.text = item.reference
     }
 
     override fun getItemCount(): Int {
-        return dataSet.size
+        return asyncListDiffer.currentList.size
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -43,4 +53,16 @@ class ClientsAdapter(private val dataSet: Array<ClientItem>) :
             tvReference = view.findViewById(R.id.clientReference)
         }
     }
+
+    object DiffCallback : DiffUtil.ItemCallback<ClientItem>() {
+
+        override fun areItemsTheSame(oldItem: ClientItem, newItem: ClientItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ClientItem, newItem: ClientItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 }
