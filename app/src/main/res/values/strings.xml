@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_clients_list">Clients</string>
     <string name="title_client_form">Client Form</string>
+    <string name="client_name">Client name</string>
+    <string name="save">save</string>
 </resources>
