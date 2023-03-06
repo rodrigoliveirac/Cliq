@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cliq</string>
+    <string name="add_fab">add_fab</string>
 </resources>

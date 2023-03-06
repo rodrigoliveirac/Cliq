@@ -4,26 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-val list = arrayOf<ClientItem>(
-    ClientItem(
-        id = "some",
-        name = "Jeniffer Torres",
-        reference = "Criativista Digital",
-        address = "São Gerardo"
-    ),
-    ClientItem(
-        id = "some",
-        name = "Rodrigo Oliveira",
-        reference = "Rodcollab",
-        address = "São Gerardo"
-    ),
-)
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.rodcollab.cliq.dummy.MockClients
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ClientsAdapter
     private lateinit var recycler: RecyclerView
+    private lateinit var floatBtn: FloatingActionButton
+    private lateinit var mockList: MockClients
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +22,15 @@ class MainActivity : AppCompatActivity() {
 
         recycler = findViewById(R.id.recycler_view)
 
+        floatBtn = findViewById(R.id.fab)
+
         recycler.layoutManager = LinearLayoutManager(this)
 
         recycler.adapter = adapter
 
+        floatBtn.setOnClickListener {
 
+        }
     }
 
 }
