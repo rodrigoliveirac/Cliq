@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         recycler.adapter = adapter
 
         floatBtn.setOnClickListener {
-
+            mockList.add()
+            adapter.submitList(mockList.fetchClients())
         }
     }
 }
