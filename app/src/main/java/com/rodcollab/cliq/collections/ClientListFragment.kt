@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.divider.MaterialDividerItemDecoration
+import com.rodcollab.cliq.R
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
 import com.rodcollab.cliq.dummy.MockClients
 
@@ -40,11 +43,36 @@ class ClientListFragment : Fragment() {
         binding.clientRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.clientRecyclerView.adapter = adapter
 
+        addingDividerDecoration()
+
         binding.fab.setOnClickListener {
             mockList.add()
             adapter.submitList(mockList.fetchClients())
         }
 
+    }
+
+    private fun addingDividerDecoration() {
+        // Adding Line between items with MaterialDividerItemDecoration
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+
+        // Removing the line at the end of the list
+        divider.isLastItemDecorated = false
+
+        val resources = requireContext().resources
+
+        // Adding start spacing
+        divider.dividerInsetStart = resources.getDimensionPixelSize(R.dimen.horizontal_margin)
+
+        // Defining size of the line
+        divider.dividerThickness = resources.getDimensionPixelSize(R.dimen.divider_height)
+        divider.dividerColor = ContextCompat.getColor(requireContext(), R.color.primary_200)
+
+        binding.clientRecyclerView.addItemDecoration(divider)
+    }
+
+    private fun addingDividerSpace() {
+        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))
     }
 
     override fun onDestroyView() {
