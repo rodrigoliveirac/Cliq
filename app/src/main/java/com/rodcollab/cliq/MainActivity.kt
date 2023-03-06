@@ -3,35 +3,34 @@ package com.rodcollab.cliq
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.rodcollab.cliq.databinding.ActivityMainBinding
 import com.rodcollab.cliq.dummy.MockClients
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ClientsAdapter
-    private lateinit var recycler: RecyclerView
-    private lateinit var floatBtn: FloatingActionButton
     private lateinit var mockList: MockClients
-
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
 
         mockList = MockClients
 
         adapter = ClientsAdapter()
 
-        recycler = findViewById(R.id.recycler_view)
-
-        floatBtn = findViewById(R.id.fab)
+        val recycler = binding.recyclerView
 
         recycler.layoutManager = LinearLayoutManager(this)
 
         recycler.adapter = adapter
 
-        floatBtn.setOnClickListener {
+
+        binding.fab.setOnClickListener {
             mockList.add()
             adapter.submitList(mockList.fetchClients())
         }
