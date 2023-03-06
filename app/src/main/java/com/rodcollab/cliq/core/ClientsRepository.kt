@@ -1,6 +1,6 @@
 package com.rodcollab.cliq.core
 
-import com.rodcollab.cliq.ClientItem
+import com.rodcollab.cliq.collections.ClientItem
 
 interface ClientsRepository {
 

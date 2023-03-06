@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/clientListFragment">
+
+    <fragment
+        android:id="@+id/clientListFragment"
+        android:name="com.rodcollab.cliq.collections.ClientListFragment"
+        android:label="@string/title_clients_list"
+        tools:layout="@layout/fragment_client_list">
+        <action
+            android:id="@+id/action_clientList_to_clientForm"
+            app:destination="@id/clientFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/clientFormFragment"
+        android:name="com.rodcollab.cliq.ClientFormFragment"
+        android:label="@string/title_client_form"
+        tools:layout="@layout/fragment_client_form" />
+
+</navigation>

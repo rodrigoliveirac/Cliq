@@ -1,21 +1,12 @@
-package com.rodcollab.cliq
+package com.rodcollab.cliq.collections
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.rodcollab.cliq.ClientsAdapter.MyViewHolder
-import com.rodcollab.cliq.dummy.MockClients
-
-data class ClientItem(
-    val id: String,
-    val name: String,
-    val reference: String,
-    val address: String
-)
+import com.rodcollab.cliq.collections.ClientsAdapter.MyViewHolder
+import com.rodcollab.cliq.databinding.ItemClientsBinding
 
 class ClientsAdapter :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -27,31 +18,30 @@ class ClientsAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_clients, parent, false)
 
-        return MyViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemClientsBinding.inflate(layoutInflater, parent, false)
+
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = asyncListDiffer.currentList[position]
-        holder.tvClientName.text = item.name
-        holder.tvReference.text = item.reference
+        holder.bind(clientItem = item)
     }
 
     override fun getItemCount(): Int {
         return asyncListDiffer.currentList.size
     }
 
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class MyViewHolder(private val binding: ItemClientsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        val tvClientName: TextView
-        val tvReference: TextView
-
-        init {
-            tvClientName = view.findViewById(R.id.clientName)
-            tvReference = view.findViewById(R.id.clientReference)
+        fun bind(clientItem: ClientItem) {
+            binding.clientName.text = clientItem.name
+            binding.clientReference.text = clientItem.reference
         }
+
     }
 
     object DiffCallback : DiffUtil.ItemCallback<ClientItem>() {

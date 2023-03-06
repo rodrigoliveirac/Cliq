@@ -2,38 +2,36 @@ package com.rodcollab.cliq
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.rodcollab.cliq.dummy.MockClients
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.rodcollab.cliq.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var adapter: ClientsAdapter
-    private lateinit var recycler: RecyclerView
-    private lateinit var floatBtn: FloatingActionButton
-    private lateinit var mockList: MockClients
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        mockList = MockClients
 
-        adapter = ClientsAdapter()
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        setupNavigation()
+    }
 
-        recycler = findViewById(R.id.recycler_view)
+    private fun setupNavigation() {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+    }
 
-        floatBtn = findViewById(R.id.fab)
-
-        recycler.layoutManager = LinearLayoutManager(this)
-
-        recycler.adapter = adapter
-
-        floatBtn.setOnClickListener {
-            mockList.add()
-            adapter.submitList(mockList.fetchClients())
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController =
+            findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
