@@ -4,5 +4,5 @@ data class ClientItem(
     val id: String,
     val name: String,
     val reference: String,
-    val address: String
+   // val address: String
 )

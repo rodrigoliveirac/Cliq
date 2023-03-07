@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
@@ -46,8 +47,7 @@ class ClientListFragment : Fragment() {
         addingDividerDecoration()
 
         binding.fab.setOnClickListener {
-            mockList.add()
-            adapter.submitList(mockList.fetchClients())
+            findNavController().navigate(R.id.action_clientList_to_clientForm)
         }
 
     }
@@ -78,5 +78,10 @@ class ClientListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.submitList(mockList.fetchClients())
     }
 }

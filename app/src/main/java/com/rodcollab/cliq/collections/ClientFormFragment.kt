@@ -1,28 +1,48 @@
-package com.rodcollab.cliq
+package com.rodcollab.cliq.collections
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.rodcollab.cliq.databinding.FragmentClientFormBinding
+import com.rodcollab.cliq.dummy.MockClients
 
 class ClientFormFragment : Fragment() {
 
     private var _binding: FragmentClientFormBinding? = null
-    private var binding = _binding!!
+
+    private val binding get() = _binding!!
+
+    private lateinit var mock: MockClients
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mock = MockClients
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentClientFormBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.saveButton.setOnClickListener {
+
+            val clientName = binding.clientNameTextInput.editText?.text.toString()
+            val clientReference = binding.referenceTextInput.editText?.text.toString()
+
+            mock.add(clientName, clientReference)
+
+            findNavController().navigateUp()
+        }
     }
 
     override fun onDestroyView() {
