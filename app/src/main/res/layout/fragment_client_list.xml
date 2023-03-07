@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collections.ClientListFragment">
+    android:layout_width="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/clientRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".collections.ClientListFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/clientRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    <com.google.android.material.bottomappbar.BottomAppBar-->
+<!--        android:id="@+id/bottomAppBar"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        app:fabAlignmentMode="end"-->
+<!--        app:fabAlignmentModeEndMargin="10dp"-->
+<!--        app:fabAnchorMode="cradle"-->
+<!--        app:fabCradleMargin="20dp"-->
+<!--        app:fabCradleRoundedCornerRadius="20dp"-->
+<!--        app:fabCradleVerticalOffset="10dp">-->
+
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:id="@+id/bottomNavigationView"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            app:itemIconTint="#292B35"-->
+<!--            app:menu="@menu/bottom_nav_menu" />-->
+<!--    </com.google.android.material.bottomappbar.BottomAppBar>-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -27,5 +57,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
