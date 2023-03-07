@@ -24,11 +24,14 @@ class ClientListFragment : Fragment() {
     private lateinit var adapter: ClientsAdapter
 
     private val viewModel: ClientListViewModel by activityViewModels {
-        ClientListViewModel.Factory(MockClients)
+        val clientRepository = ClientRepositoryImpl
+        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
+        ClientListViewModel.Factory(getClientsUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(ClientListLifecycleObserver(viewModel))
         adapter = ClientsAdapter()
     }
 
@@ -82,9 +85,9 @@ class ClientListFragment : Fragment() {
         binding.clientRecyclerView.addItemDecoration(divider)
     }
 
-    private fun addingDividerSpace() {
-        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))
-    }
+//    private fun addingDividerSpace() {
+//        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
