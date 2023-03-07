@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -21,12 +22,13 @@ class ClientListFragment : Fragment() {
 
     private lateinit var adapter: ClientsAdapter
 
-    private lateinit var mockList: MockClients
+    private val viewModel: ClientListViewModel by activityViewModels {
+        ClientListViewModel.Factory(MockClients)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = ClientsAdapter()
-        mockList = MockClients
     }
 
     override fun onCreateView(
@@ -46,10 +48,18 @@ class ClientListFragment : Fragment() {
 
         addingDividerDecoration()
 
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
+            bindUiState(uiState)
+        }
+
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_clientList_to_clientForm)
         }
 
+    }
+
+    private fun bindUiState(uiState: ClientListViewModel.UiState) {
+        adapter.submitList(uiState.clientList)
     }
 
     private fun addingDividerDecoration() {
@@ -78,10 +88,5 @@ class ClientListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        adapter.submitList(mockList.fetchClients())
     }
 }
