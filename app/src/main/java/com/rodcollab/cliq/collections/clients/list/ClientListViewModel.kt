@@ -5,28 +5,24 @@ import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
 import com.rodcollab.cliq.collections.clients.model.ClientItem
 import kotlinx.coroutines.launch
 
-class ClientListViewModel(private val repository: ClientsRepository) : ViewModel() {
+class ClientListViewModel(private val getClientsUseCase: GetClientsUseCase) : ViewModel() {
 
     private val uiState: MutableLiveData<UiState> by lazy {
-        MutableLiveData<UiState>(UiState(clientList = repository.fetchClients()))
+        MutableLiveData<UiState>(UiState(clientList = emptyList()))
     }
 
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
     }
 
-    fun addClient(
-        name: String,
-        reference: String
-    ) {
-        repository.add(name, reference)
-        refreshClientList()
+    fun onResume() {
+        viewModelScope.launch {
+            refreshClientList()
+        }
     }
 
-    private fun refreshClientList() {
-        uiState.value?.let { currentState ->
-            uiState.value = currentState.copy(clientList = repository.fetchClients())
-        }
+    private suspend fun refreshClientList() {
+        uiState.postValue(UiState(getClientsUseCase()))
     }
 
     data class UiState(val clientList: List<ClientItem>)
@@ -35,10 +31,10 @@ class ClientListViewModel(private val repository: ClientsRepository) : ViewModel
      * ViewModel Factory needed to provide Repository injection to ViewModel.
      */
     @Suppress("UNCHECKED_CAST")
-    class Factory(private val repository: ClientsRepository) : ViewModelProvider.Factory {
+    class Factory(private val getClientsUseCase: GetClientsUseCase) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ClientListViewModel(repository) as T
+            return ClientListViewModel(getClientsUseCase) as T
         }
     }
 }

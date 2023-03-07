@@ -16,8 +16,8 @@ class ClientFormFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: ClientListViewModel by activityViewModels {
-        ClientListViewModel.Factory(MockClients)
+    private val viewModel: ClientFormViewModel by activityViewModels {
+        ClientFormViewModel.Factory(ClientRepositoryImpl)
     }
 
     override fun onCreateView(
