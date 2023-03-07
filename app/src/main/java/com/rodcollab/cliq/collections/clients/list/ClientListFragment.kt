@@ -1,4 +1,4 @@
-package com.rodcollab.cliq.collections
+package com.rodcollab.cliq.collections.clients.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
+import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
+import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
-import com.rodcollab.cliq.dummy.MockClients
 
 class ClientListFragment : Fragment() {
 

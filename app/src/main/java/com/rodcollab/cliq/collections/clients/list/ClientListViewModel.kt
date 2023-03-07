@@ -1,10 +1,9 @@
-package com.rodcollab.cliq.collections
+package com.rodcollab.cliq.collections.clients.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.rodcollab.cliq.core.ClientsRepository
+import androidx.lifecycle.*
+import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
+import com.rodcollab.cliq.collections.clients.model.ClientItem
+import kotlinx.coroutines.launch
 
 class ClientListViewModel(private val repository: ClientsRepository) : ViewModel() {
 
