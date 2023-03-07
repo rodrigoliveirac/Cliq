@@ -6,7 +6,7 @@ import java.util.*
 
 object MockClients : ClientsRepository {
 
-    private var clientsList: MutableList<ClientItem> = mutableListOf()
+    private val clientsList: MutableList<ClientItem> = mutableListOf()
 
     override fun add(name: String, reference: String) {
         clientsList.add(
@@ -18,9 +18,7 @@ object MockClients : ClientsRepository {
         )
     }
 
-    override fun fetchClients(): List<ClientItem> {
-        return clientsList.map { it.copy() }
-    }
+    override fun fetchClients() = clientsList.map { it.copy() }
 
 
 }
