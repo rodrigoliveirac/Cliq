@@ -19,7 +19,6 @@ class BookingFormViewModel(
     }
 
     fun onQueryTextChange(query: String) {
-
         viewModelScope.launch {
             uiState.postValue(UiState(onQueryTextChangeUseCase(query)))
         }

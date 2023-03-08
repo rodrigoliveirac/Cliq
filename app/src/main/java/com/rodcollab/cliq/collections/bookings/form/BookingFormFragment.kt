@@ -25,12 +25,7 @@ class BookingFormFragment : Fragment() {
 
     private val viewModel: BookingFormViewModel by activityViewModels {
 
-        val clientRepository = ClientRepositoryImpl
-        val bookingsRepository = BookingRepositoryImpl
-
-        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
-        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
-
+        val (bookingsRepository, onQueryTextChangeUseCase) = injection()
         BookingFormViewModel.Factory(onQueryTextChangeUseCase, bookingsRepository)
     }
 
@@ -51,13 +46,26 @@ class BookingFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupClientList()
+        setupSearchView()
+        saveNewBooking()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupClientList() {
         binding.searchViewRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchViewRecyclerView.adapter = adapter
 
         val divider = Utils(requireContext()).addingDividerDecoration()
 
         binding.searchViewRecyclerView.addItemDecoration(divider)
+    }
 
+    private fun setupSearchView() {
         binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -76,7 +84,6 @@ class BookingFormFragment : Fragment() {
             }
 
         })
-        saveNewBooking()
     }
 
     private fun saveNewBooking() {
@@ -90,4 +97,12 @@ class BookingFormFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+    private fun injection(): Pair<BookingRepositoryImpl, OnQueryTextChangeUseCaseImpl> {
+        val clientRepository = ClientRepositoryImpl
+        val bookingsRepository = BookingRepositoryImpl
+        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
+        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
+        return Pair(bookingsRepository, onQueryTextChangeUseCase)
+    }
+
 }
