@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
+import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientListBinding

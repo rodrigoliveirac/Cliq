@@ -1,11 +1,11 @@
-package com.rodcollab.cliq.collections.clients.list
+package com.rodcollab.cliq.collections.clients.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.rodcollab.cliq.collections.clients.list.ClientsAdapter.MyViewHolder
+import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter.MyViewHolder
 import com.rodcollab.cliq.collections.clients.model.ClientItem
 import com.rodcollab.cliq.databinding.ItemClientsBinding
 

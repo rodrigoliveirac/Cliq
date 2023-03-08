@@ -7,4 +7,6 @@
     <string name="title_client_form">Client Form</string>
     <string name="client_name">Client name</string>
     <string name="save">save</string>
+    <string name="title_booking_list">Bookings</string>
+    <string name="title_booking_form">Booking Form</string>
 </resources>
