@@ -1,14 +1,14 @@
-package com.rodcollab.cliq.collections
+package com.rodcollab.cliq.collections.clients.form
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientFormBinding
-import com.rodcollab.cliq.dummy.MockClients
 
 class ClientFormFragment : Fragment() {
 
@@ -16,8 +16,8 @@ class ClientFormFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val viewModel: ClientListViewModel by activityViewModels {
-        ClientListViewModel.Factory(MockClients)
+    private val viewModel: ClientFormViewModel by activityViewModels {
+        ClientFormViewModel.Factory(ClientRepositoryImpl)
     }
 
     override fun onCreateView(

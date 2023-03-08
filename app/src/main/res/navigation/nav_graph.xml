@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/clientListFragment"
-        android:name="com.rodcollab.cliq.collections.ClientListFragment"
+        android:name="com.rodcollab.cliq.collections.clients.list.ClientListFragment"
         android:label="@string/title_clients_list"
         tools:layout="@layout/fragment_client_list">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/clientFormFragment"
-        android:name="com.rodcollab.cliq.collections.ClientFormFragment"
+        android:name="com.rodcollab.cliq.collections.clients.form.ClientFormFragment"
         android:label="@string/title_client_form"
         tools:layout="@layout/fragment_client_form" />
 

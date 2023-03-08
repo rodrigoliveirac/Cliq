@@ -1,4 +1,4 @@
-package com.rodcollab.cliq.collections
+package com.rodcollab.cliq.collections.clients.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
+import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter
+import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
+import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
-import com.rodcollab.cliq.dummy.MockClients
 
 class ClientListFragment : Fragment() {
 
@@ -23,11 +25,14 @@ class ClientListFragment : Fragment() {
     private lateinit var adapter: ClientsAdapter
 
     private val viewModel: ClientListViewModel by activityViewModels {
-        ClientListViewModel.Factory(MockClients)
+        val clientRepository = ClientRepositoryImpl
+        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
+        ClientListViewModel.Factory(getClientsUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(ClientListLifecycleObserver(viewModel))
         adapter = ClientsAdapter()
     }
 
@@ -81,9 +86,9 @@ class ClientListFragment : Fragment() {
         binding.clientRecyclerView.addItemDecoration(divider)
     }
 
-    private fun addingDividerSpace() {
-        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))
-    }
+//    private fun addingDividerSpace() {
+//        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

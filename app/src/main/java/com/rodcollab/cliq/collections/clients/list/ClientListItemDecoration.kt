@@ -1,4 +1,4 @@
-package com.rodcollab.cliq.collections
+package com.rodcollab.cliq.collections.clients.list
 
 import android.content.Context
 import android.graphics.Rect
