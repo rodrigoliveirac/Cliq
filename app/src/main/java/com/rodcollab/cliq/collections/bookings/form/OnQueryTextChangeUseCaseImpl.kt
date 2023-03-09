@@ -8,7 +8,7 @@ class OnQueryTextChangeUseCaseImpl(
 ) : OnQueryTextChangeUseCase {
 
     override suspend fun invoke(query: String): List<ClientItem> {
-        return if (query.isNotBlank()) {
+        return if (query.isNotBlank() && query.isNotEmpty()) {
             getClientsUseCase().filter { it.name.startsWith(query, ignoreCase = true) }
         } else {
             emptyList()

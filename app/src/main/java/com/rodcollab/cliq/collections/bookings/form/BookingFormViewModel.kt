@@ -6,7 +6,7 @@ import com.rodcollab.cliq.core.repository.BookingRepository
 import kotlinx.coroutines.launch
 
 class BookingFormViewModel(
-    private val onQueryTextChangeUseCase : OnQueryTextChangeUseCase,
+    private val onQueryTextChangeUseCase: OnQueryTextChangeUseCase,
     private val bookingRepository: BookingRepository
 ) : ViewModel() {
 
