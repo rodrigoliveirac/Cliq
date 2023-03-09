@@ -154,11 +154,11 @@ class BookingFormFragment : Fragment() {
 
     private fun saveNewBooking() {
         binding.saveButton.setOnClickListener {
-            val bookedTime = binding.bookingTimeTextInput.editText?.text.toString()
-            val bookedClientName = binding.clientNameTextInput.editText?.text.toString()
-            val bookedDate = binding.bookingDateTextInput.editText?.text.toString()
+            val bookedClientName = binding.bookedClientName.text.toString()
+            val bookedDate = binding.bookedDateForm.text.toString()
+            val bookedTime = binding.bookedTimeForm.text.toString()
 
-            viewModel.addBooking(bookedTime, bookedClientName, bookedDate)
+            viewModel.addBooking(bookedClientName, bookedDate,bookedTime)
 
             findNavController().navigateUp()
         }

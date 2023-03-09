@@ -27,11 +27,11 @@ class BookingFormViewModel(
     data class UiState(val clientList: List<ClientItem>)
 
     fun addBooking(
-        time: String,
         clientName: String,
-        bookedDate: String
+        bookedDate: String,
+        time: String,
     ) {
-        bookingRepository.add(time, clientName, bookedDate)
+        bookingRepository.add(clientName, bookedDate, time)
     }
 
     @Suppress("UNCHECKED_CAST")

@@ -8,13 +8,13 @@ object BookingRepositoryImpl : BookingRepository {
     private val bookingListCache: MutableList<BookingDomain> = mutableListOf()
 
     override fun fetchAll() = bookingListCache
-    override fun add(bookedTime: String, clientName: String, bookedDate: String) {
+    override fun add(bookedClientName: String, bookedDate: String, bookedTime: String) {
         bookingListCache.add(
             BookingDomain(
                 id = UUID.randomUUID().toString(),
-                bookedTime = 100000,
-                bookedClientName = clientName,
-                bookedDate = bookedDate
+                bookedClientName = bookedClientName,
+                bookedDate = bookedDate,
+                bookedTime = 10000,
             )
         )
     }
