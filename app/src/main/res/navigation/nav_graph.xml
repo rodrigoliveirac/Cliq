@@ -21,4 +21,20 @@
         android:label="@string/title_client_form"
         tools:layout="@layout/fragment_client_form" />
 
+    <fragment
+        android:id="@+id/bookingListFragment"
+        android:name="com.rodcollab.cliq.collections.bookings.list.BookingListFragment"
+        android:label="@string/title_booking_list"
+        tools:layout="@layout/fragment_booking_list">
+        <action
+            android:id="@+id/action_bookingList_to_bookingForm"
+            app:destination="@id/bookingFormFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingFormFragment"
+        android:name="com.rodcollab.cliq.collections.bookings.form.BookingFormFragment"
+        android:label="@string/title_booking_form"
+        tools:layout="@layout/fragment_booking_form" />
+
 </navigation>
