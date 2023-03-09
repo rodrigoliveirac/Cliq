@@ -65,7 +65,7 @@ class BookingFormFragment : Fragment() {
         binding.searchViewRecyclerView.addItemDecoration(divider)
     }
 
-    private fun setupSearchView() {
+    private fun updateListAccordingToOnQueryChanged() {
         binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -76,14 +76,14 @@ class BookingFormFragment : Fragment() {
 
                 viewModel.onQueryTextChange(newText.toString())
 
-                viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
-                    adapter.submitList(it.clientList)
-                }
-
                 return false
             }
 
         })
+
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
+            adapter.submitList(it.clientList)
+        }
     }
 
     private fun saveNewBooking() {
