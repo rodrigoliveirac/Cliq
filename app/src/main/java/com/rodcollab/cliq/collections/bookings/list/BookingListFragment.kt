@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
 import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCaseImpl
-import com.rodcollab.cliq.core.Utils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
+
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
 
 class BookingListFragment : Fragment() {
@@ -49,9 +49,6 @@ class BookingListFragment : Fragment() {
 
         binding.bookingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.bookingRecyclerView.adapter = adapter
-
-        val divider = Utils(requireContext()).addingDividerDecoration()
-        binding.bookingRecyclerView.addItemDecoration(divider)
 
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
             bindUiState(uiState)

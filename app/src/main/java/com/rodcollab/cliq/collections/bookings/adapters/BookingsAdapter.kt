@@ -35,9 +35,9 @@ class BookingsAdapter : RecyclerView.Adapter<BookingsAdapter.BookingViewHolder>(
     class BookingViewHolder(private val binding: ItemBookingBinding) : ViewHolder(binding.root) {
 
         fun bind(bookingItem: BookingItem) {
-            binding.bookedTime.text = "Horário: ${bookingItem.bookedTime}"
-            binding.bookedClientName.text = "Nome do cliente: ${bookingItem.clientName}"
-            binding.bookedDate.text = bookingItem.bookedDate
+            binding.bookedClientName.text = bookingItem.bookedClientName
+            binding.bookedDateForm.text =  bookingItem.bookedDate
+            binding.bookedTimeForm.text = bookingItem.bookedTime.toString()
         }
     }
 

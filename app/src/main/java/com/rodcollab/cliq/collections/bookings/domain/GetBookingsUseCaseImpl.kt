@@ -10,7 +10,7 @@ class GetBookingsUseCaseImpl(private val bookingsRepository: BookingRepository) 
         return bookingsRepository.fetchAll().map {
             BookingItem(
                 id = it.id,
-                clientName = it.bookedClientName,
+                bookedClientName = it.bookedClientName,
                 bookedTime = it.bookedTime,
                 bookedDate = it.bookedDate
             )
