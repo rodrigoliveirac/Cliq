@@ -51,6 +51,35 @@ class BookingFormFragment : Fragment() {
         saveNewBooking()
     }
 
+    private fun setupMaterialDatePicker() {
+        val builderDatePicker: MaterialDatePicker.Builder<*> =
+            MaterialDatePicker.Builder.datePicker()
+        //.setTextInputFormat(SimpleDateFormat("dd/MM/yyyy"))
+        val pickerDate = builderDatePicker.build()
+        pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
+
+        pickerDate.addOnPositiveButtonClickListener {
+
+            val builderTimePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+            val pickerTime = builderTimePicker.build()
+
+            pickerTime.show(this.parentFragmentManager, "fragment_tag")
+
+            viewModel.saveValueDate(pickerDate.headerText)
+
+            pickerTime.addOnPositiveButtonClickListener {
+                viewModel.getValueDate.observe(viewLifecycleOwner) {date ->
+                    binding.bookedDateForm.text = date
+                }
+                binding.bookedTimeForm.text = pickerTime.hour.toString()
+                binding.bookedDateForm.visibility = View.VISIBLE
+                binding.bookedTimeForm.visibility = View.VISIBLE
+            }
+
+        }
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
