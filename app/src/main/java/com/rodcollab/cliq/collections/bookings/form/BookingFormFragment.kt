@@ -1,7 +1,9 @@
 package com.rodcollab.cliq.collections.bookings.form
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
@@ -9,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.Utils
@@ -31,7 +36,8 @@ class BookingFormFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SearchClientListAdapter()
+        adapter = SearchClientListAdapter(viewModel)
+
     }
 
     override fun onCreateView(
@@ -122,13 +128,14 @@ class BookingFormFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupClientList() {
+    private fun setupSearchClientListAdapter() {
         binding.searchViewRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.searchViewRecyclerView.adapter = adapter
 
         val divider = Utils(requireContext()).addingDividerDecoration()
 
         binding.searchViewRecyclerView.addItemDecoration(divider)
+
     }
 
     private fun updateListAccordingToOnQueryChanged() {
@@ -161,6 +168,7 @@ class BookingFormFragment : Fragment() {
             viewModel.addBooking(bookedClientName, bookedDate,bookedTime)
 
             findNavController().navigateUp()
+            viewModel.bookingSaved(false)
         }
     }
     private fun injection(): Pair<BookingRepositoryImpl, OnQueryTextChangeUseCaseImpl> {

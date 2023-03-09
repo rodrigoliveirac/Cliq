@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.rodcollab.cliq.collections.bookings.form.BookingFormViewModel
 import com.rodcollab.cliq.collections.clients.model.ClientItem
 import com.rodcollab.cliq.databinding.ItemSingleLineBinding
 
-class SearchClientListAdapter() :
+class SearchClientListAdapter(private var viewModel: BookingFormViewModel) :
     RecyclerView.Adapter<SearchClientListAdapter.SearchClientListViewHolder>() {
 
 
@@ -18,10 +19,17 @@ class SearchClientListAdapter() :
         asyncListDif.submitList(list)
     }
 
-    class SearchClientListViewHolder(private val binding: ItemSingleLineBinding) :
+    class SearchClientListViewHolder(
+        private val viewModel: BookingFormViewModel,
+        private val binding: ItemSingleLineBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ClientItem) {
-            binding.itemText.text = item.name
+        fun bind(item: ClientItem) = binding.apply {
+            itemText.text = item.name
+
+            root.setOnClickListener {
+                viewModel.onItemClicked(item.name)
+            }
         }
 
     }
@@ -29,7 +37,7 @@ class SearchClientListAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchClientListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = ItemSingleLineBinding.inflate(layoutInflater)
-        return SearchClientListViewHolder(view)
+        return SearchClientListViewHolder(viewModel, view)
     }
 
     override fun getItemCount() = asyncListDif.currentList.size
