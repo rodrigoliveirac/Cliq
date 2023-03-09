@@ -40,14 +40,51 @@ class BookingFormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBookingFormBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupClientList()
-        setupSearchView()
+        viewModel.clientSelected.observe(viewLifecycleOwner) { clientSelected ->
+            if (clientSelected == true) {
+
+                binding.cardViewClient.visibility = View.VISIBLE
+                binding.line.visibility = View.VISIBLE
+
+                binding.toSelectDate.visibility = View.VISIBLE
+
+                binding.saveButton.visibility = View.VISIBLE
+
+                binding.searchViewClients.visibility = View.GONE
+                binding.searchViewRecyclerView.visibility = View.GONE
+            }
+        }
+
+        viewModel.liveName.observe(viewLifecycleOwner) {
+            binding.bookedClientName.text = it
+
+        }
+
+        binding.toSelectDate.setOnTouchListener { _, motionEvent ->
+
+            if (MotionEvent.ACTION_UP == motionEvent.action) {
+                setupMaterialDatePicker()
+            }
+            true
+        }
+
+        viewModel.clientSelected.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.searchViewRecyclerView.visibility = View.GONE
+                binding.searchViewClients.visibility = View.GONE
+            }
+        }
+
+        setupSearchClientListAdapter()
+        updateListAccordingToOnQueryChanged()
         saveNewBooking()
     }
 
