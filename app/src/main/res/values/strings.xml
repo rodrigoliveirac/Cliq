@@ -10,4 +10,6 @@
     <string name="title_booking_list">Bookings</string>
     <string name="title_booking_form">Booking Form</string>
     <string name="selecione_uma_data">Selecione uma Data</string>
+    <string name="title_nav_clients">Clients</string>
+    <string name="title_nav_bookings">Bookings</string>
 </resources>

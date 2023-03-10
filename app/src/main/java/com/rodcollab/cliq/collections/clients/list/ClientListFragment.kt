@@ -1,12 +1,12 @@
 package com.rodcollab.cliq.collections.clients.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -51,14 +51,25 @@ class ClientListFragment : Fragment() {
         binding.clientRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.clientRecyclerView.adapter = adapter
 
+        val menuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.overflowMenu) {
+                    findNavController().navigate(R.id.action_clientList_to_clientForm)
+                    return true
+                }
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         addingDividerDecoration()
 
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
             bindUiState(uiState)
-        }
-
-        binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_clientList_to_clientForm)
         }
 
     }
@@ -94,4 +105,5 @@ class ClientListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
