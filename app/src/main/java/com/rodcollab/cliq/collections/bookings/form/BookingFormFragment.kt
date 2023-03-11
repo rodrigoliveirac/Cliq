@@ -20,6 +20,7 @@ import com.rodcollab.cliq.core.Utils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
+import java.util.*
 
 class BookingFormFragment : Fragment() {
 
@@ -103,7 +104,7 @@ class BookingFormFragment : Fragment() {
 
         pickerDate.addOnPositiveButtonClickListener {
 
-            val builderTimePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+            val builderTimePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_12H)
             val pickerTime = builderTimePicker.build()
 
             pickerTime.show(this.parentFragmentManager, "fragment_tag")
@@ -111,10 +112,13 @@ class BookingFormFragment : Fragment() {
             viewModel.saveValueDate(pickerDate.headerText)
 
             pickerTime.addOnPositiveButtonClickListener {
-                viewModel.getValueDate.observe(viewLifecycleOwner) {date ->
+                viewModel.getValueDate.observe(viewLifecycleOwner) { date ->
                     binding.bookedDateForm.text = date
                 }
-                binding.bookedTimeForm.text = pickerTime.hour.toString()
+
+
+                binding.bookedTimeForm.text = formatTextTime(pickerTime.hour, pickerTime.minute)
+
                 binding.bookedDateForm.visibility = View.VISIBLE
                 binding.bookedTimeForm.visibility = View.VISIBLE
             }
@@ -126,6 +130,15 @@ class BookingFormFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun formatTextTime(hour: Int, min: Int): String {
+        return java.lang.String.format(
+            Locale.getDefault(),
+            "%02d:%02d",
+            hour,
+            min,
+        )
     }
 
     private fun setupSearchClientListAdapter() {
@@ -163,14 +176,24 @@ class BookingFormFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             val bookedClientName = binding.bookedClientName.text.toString()
             val bookedDate = binding.bookedDateForm.text.toString()
-            val bookedTime = binding.bookedTimeForm.text.toString()
 
-            viewModel.addBooking(bookedClientName, bookedDate,bookedTime)
+            val bookedTime =
+                binding.bookedTimeForm.text.toString().split(":").mapIndexed { index, string ->
+                    when (index) {
+                        0 -> string.toLong() * 3600000L
+                        else -> {
+                            string.toLong() * 60000L
+                        }
+                    }
+                }.sumOf { it }
+
+            viewModel.addBooking(bookedClientName, bookedDate, bookedTime)
 
             findNavController().navigateUp()
             viewModel.bookingSaved(false)
         }
     }
+
     private fun injection(): Pair<BookingRepositoryImpl, OnQueryTextChangeUseCaseImpl> {
         val clientRepository = ClientRepositoryImpl
         val bookingsRepository = BookingRepositoryImpl

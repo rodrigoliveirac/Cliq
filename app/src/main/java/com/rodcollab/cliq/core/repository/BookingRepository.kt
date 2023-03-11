@@ -6,6 +6,6 @@ interface BookingRepository {
 
     fun fetchAll(): List<BookingDomain>
 
-    fun add(bookedClientName: String, bookedDate: String, bookedTime: String)
+    fun add(bookedClientName: String, bookedDate: String, bookedTime: Long)
 
 }

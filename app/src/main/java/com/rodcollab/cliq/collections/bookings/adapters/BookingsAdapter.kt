@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.rodcollab.cliq.collections.bookings.model.BookingItem
 import com.rodcollab.cliq.databinding.ItemBookingBinding
+import java.util.*
 
 class BookingsAdapter : RecyclerView.Adapter<BookingsAdapter.BookingViewHolder>() {
 
@@ -37,10 +38,22 @@ class BookingsAdapter : RecyclerView.Adapter<BookingsAdapter.BookingViewHolder>(
         fun bind(bookingItem: BookingItem) {
             binding.bookedClientName.text = bookingItem.bookedClientName
             binding.bookedDateForm.text =  bookingItem.bookedDate
-            binding.bookedTimeForm.text = bookingItem.bookedTime.toString()
+            binding.bookedTimeForm.text = formatTextTime(bookingItem.bookedTime)
         }
-    }
+        private fun formatTextTime(ms: Long): String {
 
+            val hour = (ms / 1000) / 3600
+            val minute = (ms / 1000 / 60) % 60
+
+            return java.lang.String.format(
+                Locale.getDefault(),
+                "%02d:%02d",
+                hour,
+                minute,
+            )
+        }
+
+    }
 
     object DiffCallback : DiffUtil.ItemCallback<BookingItem>() {
 

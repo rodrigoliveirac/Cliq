@@ -35,7 +35,7 @@ class BookingFormViewModel(
     fun addBooking(
         clientName: String,
         bookedDate: String,
-        time: String,
+        time: Long,
     ) {
         bookingRepository.add(clientName, bookedDate, time)
     }
