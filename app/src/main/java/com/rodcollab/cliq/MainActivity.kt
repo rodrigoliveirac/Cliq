@@ -37,10 +37,12 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.clients -> {
-                    navController.navigate(R.id.action_bookingList_to_clientList)
+                    if (navController.currentDestination?.id == R.id.bookingListFragment)
+                        navController.navigate(R.id.action_bookingList_to_clientList)
                 }
                 else -> {
-                    navController.navigate(R.id.action_clientList_to_bookingList)
+                    if (navController.currentDestination?.id == R.id.clientListFragment)
+                        navController.navigate(R.id.action_clientList_to_bookingList)
                 }
             }
             true
