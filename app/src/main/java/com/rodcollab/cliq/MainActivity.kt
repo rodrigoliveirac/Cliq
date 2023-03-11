@@ -1,6 +1,7 @@
 package com.rodcollab.cliq
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -21,27 +22,38 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
         setupNavigation()
+        setupBottomNavigationView()
+    }
 
+    private fun setupBottomNavigationView() {
         bottomNavigationView = binding.root.findViewById(R.id.navigationView)
+        addOnDestinationChangedListener()
+        setOnItemSelectedListener()
+    }
 
+    private fun setOnItemSelectedListener() {
         bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.clients -> {
                     navController.navigate(R.id.action_bookingList_to_clientList)
-                    return@setOnItemSelectedListener true
                 }
-
                 else -> {
-
                     navController.navigate(R.id.action_clientList_to_bookingList)
-                    return@setOnItemSelectedListener true
-
                 }
             }
+            true
+        }
+    }
 
+    private fun addOnDestinationChangedListener() {
+        navController.addOnDestinationChangedListener { controller, _, _ ->
+            if (controller.currentDestination?.id == R.id.bookingListFragment || controller.currentDestination?.id == R.id.clientListFragment) {
+                bottomNavigationView.visibility = View.VISIBLE
+            } else {
+                bottomNavigationView.visibility = View.GONE
+            }
         }
     }
 
