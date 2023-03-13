@@ -5,17 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="12dp">
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/item_bookings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="16dp"
         app:cardElevation="10dp"
         app:cardMaxElevation="8dp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
+        app:cardUseCompatPadding="false"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
