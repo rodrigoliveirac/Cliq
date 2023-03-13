@@ -31,10 +31,19 @@
         tools:layout="@layout/fragment_booking_list">
         <action
             android:id="@+id/action_bookingList_to_bookingForm"
-            app:destination="@id/bookingFormFragment" />
+            app:destination="@id/searchClientFragment" />
         <action
             android:id="@+id/action_bookingList_to_clientList"
             app:destination="@id/clientListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchClientFragment"
+        android:name="com.rodcollab.cliq.collections.bookings.form.SearchClientFragment"
+        android:label="Select client">
+        <action
+            android:id="@+id/action_searchClient_to_bookingForm"
+            app:destination="@id/bookingFormFragment" />
     </fragment>
 
     <fragment
