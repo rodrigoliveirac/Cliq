@@ -16,6 +16,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
+import com.rodcollab.cliq.core.ConversionUtils
 import com.rodcollab.cliq.core.Utils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
@@ -177,15 +178,7 @@ class BookingFormFragment : Fragment() {
             val bookedClientName = binding.bookedClientName.text.toString()
             val bookedDate = binding.bookedDateForm.text.toString()
 
-            val bookedTime =
-                binding.bookedTimeForm.text.toString().split(":").mapIndexed { index, string ->
-                    when (index) {
-                        0 -> string.toLong() * 3600000L
-                        else -> {
-                            string.toLong() * 60000L
-                        }
-                    }
-                }.sumOf { it }
+            val bookedTime = ConversionUtils.getValueTimeInLong(binding.bookedTimeForm.text)
 
             viewModel.addBooking(bookedClientName, bookedDate, bookedTime)
 
@@ -193,6 +186,7 @@ class BookingFormFragment : Fragment() {
             viewModel.bookingSaved(false)
         }
     }
+
 
     private fun injection(): Pair<BookingRepositoryImpl, OnQueryTextChangeUseCaseImpl> {
         val clientRepository = ClientRepositoryImpl
