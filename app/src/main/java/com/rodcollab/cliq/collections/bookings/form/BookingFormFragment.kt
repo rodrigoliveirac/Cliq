@@ -6,20 +6,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
-import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.ConversionUtils
-import com.rodcollab.cliq.core.Utils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
-import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
 import java.util.*
 
@@ -28,18 +22,9 @@ class BookingFormFragment : Fragment() {
     private var _binding: FragmentBookingFormBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: SearchClientListAdapter
-
     private val viewModel: BookingFormViewModel by activityViewModels {
-
-        val (bookingsRepository, onQueryTextChangeUseCase) = injection()
-        BookingFormViewModel.Factory(onQueryTextChangeUseCase, bookingsRepository)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = SearchClientListAdapter(viewModel)
-
+        val bookingsRepository = injection()
+        BookingFormViewModel.Factory(bookingsRepository)
     }
 
     override fun onCreateView(
@@ -56,21 +41,6 @@ class BookingFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.clientSelected.observe(viewLifecycleOwner) { clientSelected ->
-            if (clientSelected == true) {
-
-                binding.cardViewClient.visibility = View.VISIBLE
-                binding.line.visibility = View.VISIBLE
-
-                binding.toSelectDate.visibility = View.VISIBLE
-
-                binding.saveButton.visibility = View.VISIBLE
-
-                binding.searchViewClients.visibility = View.GONE
-                binding.searchViewRecyclerView.visibility = View.GONE
-            }
-        }
-
         viewModel.liveName.observe(viewLifecycleOwner) {
             binding.bookedClientName.text = it
 
@@ -84,15 +54,6 @@ class BookingFormFragment : Fragment() {
             true
         }
 
-        viewModel.clientSelected.observe(viewLifecycleOwner) {
-            if (it == true) {
-                binding.searchViewRecyclerView.visibility = View.GONE
-                binding.searchViewClients.visibility = View.GONE
-            }
-        }
-
-        setupSearchClientListAdapter()
-        updateListAccordingToOnQueryChanged()
         saveNewBooking()
     }
 
@@ -142,37 +103,6 @@ class BookingFormFragment : Fragment() {
         )
     }
 
-    private fun setupSearchClientListAdapter() {
-        binding.searchViewRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.searchViewRecyclerView.adapter = adapter
-
-        val divider = Utils(requireContext()).addingDividerDecoration()
-
-        binding.searchViewRecyclerView.addItemDecoration(divider)
-
-    }
-
-    private fun updateListAccordingToOnQueryChanged() {
-        binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-                viewModel.onQueryTextChange(newText.toString())
-
-                return false
-            }
-
-        })
-
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
-            adapter.submitList(it.clientList)
-        }
-    }
-
     private fun saveNewBooking() {
         binding.saveButton.setOnClickListener {
             val bookedClientName = binding.bookedClientName.text.toString()
@@ -183,17 +113,12 @@ class BookingFormFragment : Fragment() {
             viewModel.addBooking(bookedClientName, bookedDate, bookedTime)
 
             findNavController().navigateUp()
-            viewModel.bookingSaved(false)
         }
     }
 
 
-    private fun injection(): Pair<BookingRepositoryImpl, OnQueryTextChangeUseCaseImpl> {
-        val clientRepository = ClientRepositoryImpl
-        val bookingsRepository = BookingRepositoryImpl
-        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
-        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
-        return Pair(bookingsRepository, onQueryTextChangeUseCase)
+    private fun injection(): BookingRepositoryImpl {
+        return BookingRepositoryImpl
     }
 
 }
