@@ -1,12 +1,12 @@
 package com.rodcollab.cliq.collections.bookings.form
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodcollab.cliq.R
@@ -46,6 +46,8 @@ class SearchClientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        menuCreate()
+
         setupSearchClientListAdapter()
         updateListAccordingToOnQueryChanged()
         viewModel.clientSelected().observe(viewLifecycleOwner) {
@@ -53,6 +55,23 @@ class SearchClientFragment : Fragment() {
                 findNavController().navigate(R.id.action_searchClient_to_bookingForm)
             }
         }
+    }
+
+    private fun menuCreate() {
+        val menuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.overflowMenu) {
+                    findNavController().navigate(R.id.action_searchClient_to_clientForm)
+                    return true
+                }
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {

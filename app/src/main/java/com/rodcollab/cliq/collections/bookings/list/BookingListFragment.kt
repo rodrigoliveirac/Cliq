@@ -46,9 +46,25 @@ class BookingListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAdapter()
+
+        menuCreate()
+
+        observeList()
+    }
+
+    private fun observeList() {
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
+            bindUiState(uiState)
+        }
+    }
+
+    private fun setupAdapter() {
         binding.bookingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.bookingRecyclerView.adapter = adapter
+    }
 
+    private fun menuCreate() {
         val menuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -63,11 +79,6 @@ class BookingListFragment : Fragment() {
                 return false
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
-            bindUiState(uiState)
-        }
     }
 
     private fun bindUiState(uiState: BookingListViewModel.UiState) {
