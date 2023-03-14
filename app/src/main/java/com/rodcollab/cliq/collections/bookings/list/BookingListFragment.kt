@@ -57,7 +57,7 @@ class BookingListFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 if (menuItem.itemId == R.id.overflowMenu) {
-                    findNavController().navigate(R.id.action_bookingList_to_bookingForm)
+                    findNavController().navigate(R.id.action_bookingList_to_searchClientList)
                     return true
                 }
                 return false

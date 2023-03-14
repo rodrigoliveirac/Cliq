@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.rodcollab.cliq.collections.bookings.form.BookingFormViewModel
+import com.rodcollab.cliq.collections.bookings.form.SearchClientViewModel
 import com.rodcollab.cliq.collections.clients.model.ClientItem
 import com.rodcollab.cliq.databinding.ItemSingleLineBinding
 
-class SearchClientListAdapter(private var viewModel: BookingFormViewModel) :
+class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
     RecyclerView.Adapter<SearchClientListAdapter.SearchClientListViewHolder>() {
 
 
@@ -20,7 +20,7 @@ class SearchClientListAdapter(private var viewModel: BookingFormViewModel) :
     }
 
     class SearchClientListViewHolder(
-        private val viewModel: BookingFormViewModel,
+        private val viewModel: SearchClientViewModel,
         private val binding: ItemSingleLineBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,7 +28,7 @@ class SearchClientListAdapter(private var viewModel: BookingFormViewModel) :
             itemText.text = item.name
 
             root.setOnClickListener {
-                viewModel.onItemClicked(item.name)
+                viewModel.onItemClicked(item.id)
             }
         }
 
