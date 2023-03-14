@@ -30,8 +30,9 @@
         android:label="@string/title_booking_list"
         tools:layout="@layout/fragment_booking_list">
         <action
-            android:id="@+id/action_bookingList_to_bookingForm"
-            app:destination="@id/searchClientFragment" />
+            android:id="@+id/action_bookingList_to_searchClientList"
+            app:destination="@id/searchClientFragment"
+            />
         <action
             android:id="@+id/action_bookingList_to_clientList"
             app:destination="@id/clientListFragment" />
@@ -43,13 +44,17 @@
         android:label="Select client">
         <action
             android:id="@+id/action_searchClient_to_bookingForm"
-            app:destination="@id/bookingFormFragment" />
+            app:destination="@id/bookingFormFragment"
+            app:popUpTo="@id/bookingListFragment"
+            app:popUpToInclusive="false"
+            />
     </fragment>
 
     <fragment
         android:id="@+id/bookingFormFragment"
         android:name="com.rodcollab.cliq.collections.bookings.form.BookingFormFragment"
         android:label="@string/title_booking_form"
-        tools:layout="@layout/fragment_booking_form" />
+        tools:layout="@layout/fragment_booking_form">
+    </fragment>
 
 </navigation>

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         navController =
             findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
 }

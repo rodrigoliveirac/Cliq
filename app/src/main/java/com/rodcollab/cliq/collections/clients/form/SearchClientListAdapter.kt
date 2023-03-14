@@ -28,7 +28,7 @@ class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
             itemText.text = item.name
 
             root.setOnClickListener {
-               // item was clicked
+                viewModel.onItemClicked(item.id)
             }
         }
 

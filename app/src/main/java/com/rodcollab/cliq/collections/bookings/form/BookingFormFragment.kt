@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.core.ConversionUtils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
+import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
 import java.util.*
 
@@ -25,6 +27,11 @@ class BookingFormFragment : Fragment() {
     private val viewModel: BookingFormViewModel by activityViewModels {
         val bookingsRepository = injection()
         BookingFormViewModel.Factory(bookingsRepository)
+    }
+
+    private val viewModelSearchClient: SearchClientViewModel by activityViewModels {
+        val (getClientsUseCase, onQueryTextChangeUseCase) = injectionSearchClientViewModel()
+        SearchClientViewModel.Factory(getClientsUseCase, onQueryTextChangeUseCase)
     }
 
     override fun onCreateView(
@@ -41,9 +48,8 @@ class BookingFormFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.liveName.observe(viewLifecycleOwner) {
-            binding.bookedClientName.text = it
-
+        viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) {
+            binding.bookedClientName.text = it.clientSelected?.name
         }
 
         binding.toSelectDate.setOnTouchListener { _, motionEvent ->
@@ -105,13 +111,16 @@ class BookingFormFragment : Fragment() {
 
     private fun saveNewBooking() {
         binding.saveButton.setOnClickListener {
+
             val bookedClientName = binding.bookedClientName.text.toString()
             val bookedDate = binding.bookedDateForm.text.toString()
-
             val bookedTime = ConversionUtils.getValueTimeInLong(binding.bookedTimeForm.text)
-
-            viewModel.addBooking(bookedClientName, bookedDate, bookedTime)
-
+            var bookedClientId = ""
+            viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) { client ->
+                bookedClientId = client.clientSelected?.id.toString()
+            }
+            viewModel.addBooking(bookedClientId,bookedClientName, bookedDate, bookedTime)
+            viewModelSearchClient.resetClientSelected()
             findNavController().navigateUp()
         }
     }
@@ -119,6 +128,14 @@ class BookingFormFragment : Fragment() {
 
     private fun injection(): BookingRepositoryImpl {
         return BookingRepositoryImpl
+    }
+
+    private fun injectionSearchClientViewModel(): Pair<GetClientsUseCaseImpl, OnQueryTextChangeUseCaseImpl> {
+        val clientRepository = ClientRepositoryImpl
+        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
+        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
+
+        return Pair(getClientsUseCase, onQueryTextChangeUseCase)
     }
 
 }

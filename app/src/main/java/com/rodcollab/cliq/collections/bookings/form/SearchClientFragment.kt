@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.Utils
@@ -24,7 +26,7 @@ class SearchClientFragment : Fragment() {
         val clientRepository = ClientRepositoryImpl
         val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
         val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
-        SearchClientViewModel.Factory(onQueryTextChangeUseCase)
+        SearchClientViewModel.Factory(getClientsUseCase, onQueryTextChangeUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +48,11 @@ class SearchClientFragment : Fragment() {
 
         setupSearchClientListAdapter()
         updateListAccordingToOnQueryChanged()
-
+        viewModel.clientSelected().observe(viewLifecycleOwner) {
+            if (it.wasSelected && it.clientSelected != null) {
+                findNavController().navigate(R.id.action_searchClient_to_bookingForm)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -74,14 +80,15 @@ class SearchClientFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 viewModel.onQueryTextChange(newText.toString())
+                viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
+                    adapter.submitList(it.clientList)
+                }
 
                 return false
             }
 
         })
 
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
-            adapter.submitList(it.clientList)
-        }
+
     }
 }
