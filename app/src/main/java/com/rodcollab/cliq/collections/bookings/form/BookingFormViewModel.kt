@@ -1,5 +1,6 @@
 package com.rodcollab.cliq.collections.bookings.form
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.rodcollab.cliq.core.repository.BookingRepository
 import kotlinx.coroutines.launch
@@ -9,19 +10,16 @@ class BookingFormViewModel(
 ) : ViewModel() {
 
     fun addBooking(
-        clientName: String,
+        bookedClientId: String,
+        bookedClientName: String,
         bookedDate: String,
         time: Long,
     ) {
         viewModelScope.launch {
-            bookingRepository.add(clientName, bookedDate, time)
+            bookingRepository.add(bookedClientId, bookedClientName, bookedDate, time)
+            Log.d("clientIdViewModelFormAfterAdd", bookedClientId)
         }
     }
-
-    private val name: MutableLiveData<String> by lazy {
-        MutableLiveData<String>("")
-    }
-    val liveName: LiveData<String> = name
 
     private val setValueDate: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
