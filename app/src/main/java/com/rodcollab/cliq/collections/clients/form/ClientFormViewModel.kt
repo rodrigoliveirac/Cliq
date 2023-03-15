@@ -1,5 +1,7 @@
 package com.rodcollab.cliq.collections.clients.form
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -12,13 +14,25 @@ class ClientFormViewModel(
 
     fun addClient(
         name: String,
-        reference: String
+        lastName: String,
+        address: String,
+        phoneNumber: String,
+        birthday: String
     ) {
         viewModelScope.launch {
             clientRepository.add(
-                name, reference
+                name, lastName, address, phoneNumber, birthday
             )
         }
+    }
+
+    private val _getValueDate: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    val getValueDate: LiveData<String> = _getValueDate
+
+    fun saveValueDate(headerText: String?) {
+        _getValueDate.value = headerText
     }
 
     /**
