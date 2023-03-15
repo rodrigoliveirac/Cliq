@@ -90,13 +90,20 @@ class SearchClientFragment : Fragment() {
     }
 
     private fun updateListAccordingToOnQueryChanged() {
+
+        viewModel.getLastClient()
+            .observe(viewLifecycleOwner) {
+                binding.searchViewClients.setQuery(it, false)
+            }
+
+
         binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+
 
                 viewModel.onQueryTextChange(newText.toString())
                 viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
