@@ -6,8 +6,8 @@ import com.rodcollab.cliq.core.repository.BookingRepository
 class GetBookingsUseCaseImpl(private val bookingsRepository: BookingRepository) :
     GetBookingsUseCase {
 
-    override suspend fun invoke(): List<BookingItem> {
-        return bookingsRepository.fetchAll().map {
+    override suspend fun invoke(atDate: String): List<BookingItem> {
+        return bookingsRepository.fetch(atDate).map {
             BookingItem(
                 id = it.id,
                 bookedClientName = it.bookedClientName,

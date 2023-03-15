@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.rodcollab.cliq.core.repository.BookingRepository
 import kotlinx.coroutines.launch
+import java.util.*
 
 class BookingFormViewModel(
     private val bookingRepository: BookingRepository
@@ -29,6 +30,7 @@ class BookingFormViewModel(
 
     fun saveValueDate(headerText: String?) {
         setValueDate.value = headerText
+
     }
 
     @Suppress("UNCHECKED_CAST")
