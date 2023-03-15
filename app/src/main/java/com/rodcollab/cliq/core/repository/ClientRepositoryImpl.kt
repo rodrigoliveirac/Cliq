@@ -5,7 +5,41 @@ import java.util.*
 
 object ClientRepositoryImpl : ClientRepository {
 
-    private val clientListCache: MutableList<ClientDomain> = mutableListOf()
+    private val clientListCache: MutableList<ClientDomain> = mutableListOf(
+        ClientDomain(
+            id = UUID.randomUUID().toString(),
+            name = "rodrigo",
+            lastName = "lastName",
+            address = "address",
+            phoneNumber = "phoneNumber",
+            birthday = "birthday"
+        ),
+        ClientDomain(
+            id = UUID.randomUUID().toString(),
+            name = "jeni",
+            lastName = "lastName",
+            address = "address",
+            phoneNumber = "phoneNumber",
+            birthday = "birthday"
+        ),
+        ClientDomain(
+            id = UUID.randomUUID().toString(),
+            name = "roxy",
+            lastName = "lastName",
+            address = "address",
+            phoneNumber = "phoneNumber",
+            birthday = "birthday"
+        ),
+        ClientDomain(
+            id = UUID.randomUUID().toString(),
+            name = "francisco",
+            lastName = "lastName",
+            address = "address",
+            phoneNumber = "phoneNumber",
+            birthday = "birthday"
+        ),
+
+    )
 
     override suspend fun add(
         name: String,

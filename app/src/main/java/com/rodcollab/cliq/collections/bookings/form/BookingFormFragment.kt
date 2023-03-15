@@ -55,6 +55,7 @@ class BookingFormFragment : Fragment() {
 
         viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) {
             binding.bookedClientName.text = it.clientSelected?.name
+            binding.bookedAddressForm.text = it.clientSelected?.address
         }
 
         binding.toSelectDate.setOnTouchListener { _, motionEvent ->
@@ -88,14 +89,9 @@ class BookingFormFragment : Fragment() {
             viewModel.saveValueDate(pickerDate.headerText)
 
             pickerTime.addOnPositiveButtonClickListener {
-                viewModel.getValueDate.observe(viewLifecycleOwner) { date ->
-                    binding.bookedDateForm.text = date
-                }
 
                 binding.bookedTimeForm.text = formatTextTime(pickerTime.hour, pickerTime.minute)
 
-                binding.bookedDateForm.visibility = View.VISIBLE
-                binding.bookedTimeForm.visibility = View.VISIBLE
             }
 
         }
@@ -120,13 +116,18 @@ class BookingFormFragment : Fragment() {
         binding.saveButton.setOnClickListener {
 
             val bookedClientName = binding.bookedClientName.text.toString()
-            val bookedDate = binding.bookedDateForm.text.toString()
+            val bookedClientAddress = binding.bookedAddressForm.text.toString()
             val bookedTime = ConversionUtils.getValueTimeInLong(binding.bookedTimeForm.text)
+
             var bookedClientId = ""
+            var bookedDate = ""
             viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) { client ->
                 bookedClientId = client.clientSelected?.id.toString()
             }
-            viewModel.addBooking(bookedClientId, bookedClientName, bookedDate, bookedTime)
+            viewModel.getValueDate.observe(viewLifecycleOwner) {
+                bookedDate = it
+            }
+            viewModel.addBooking(bookedClientId, bookedClientName, bookedClientAddress, bookedDate, bookedTime)
             viewModelSearchClient.resetClientSelected()
             findNavController().navigateUp()
         }

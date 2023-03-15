@@ -8,6 +8,6 @@ interface BookingRepository {
 
     suspend fun fetch(atDate: String): List<BookingDomain>
 
-    suspend fun add(bookedClientId: String, bookedClientName: String, bookedDate: String, bookedTime: Long)
+    suspend fun add(bookedClientId: String, bookedClientName: String, bookedClientAddress:String, bookedDate: String, bookedTime: Long)
 
 }
