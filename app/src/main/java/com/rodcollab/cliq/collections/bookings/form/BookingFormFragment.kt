@@ -1,11 +1,13 @@
 package com.rodcollab.cliq.collections.bookings.form
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +19,8 @@ import com.rodcollab.cliq.core.ConversionUtils
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class BookingFormFragment : Fragment() {
@@ -44,6 +48,7 @@ class BookingFormFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,9 +68,12 @@ class BookingFormFragment : Fragment() {
         saveNewBooking()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SimpleDateFormat")
     private fun setupMaterialDatePicker() {
         val builderDatePicker: MaterialDatePicker.Builder<*> =
             MaterialDatePicker.Builder.datePicker()
+                .setTextInputFormat(SimpleDateFormat(LocalDate.now().toString()))
 
         val pickerDate = builderDatePicker.build()
         pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
@@ -83,7 +91,6 @@ class BookingFormFragment : Fragment() {
                 viewModel.getValueDate.observe(viewLifecycleOwner) { date ->
                     binding.bookedDateForm.text = date
                 }
-
 
                 binding.bookedTimeForm.text = formatTextTime(pickerTime.hour, pickerTime.minute)
 
@@ -119,7 +126,7 @@ class BookingFormFragment : Fragment() {
             viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) { client ->
                 bookedClientId = client.clientSelected?.id.toString()
             }
-            viewModel.addBooking(bookedClientId,bookedClientName, bookedDate, bookedTime)
+            viewModel.addBooking(bookedClientId, bookedClientName, bookedDate, bookedTime)
             viewModelSearchClient.resetClientSelected()
             findNavController().navigateUp()
         }

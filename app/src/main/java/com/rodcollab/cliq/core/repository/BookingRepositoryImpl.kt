@@ -1,6 +1,7 @@
 package com.rodcollab.cliq.core.repository
 
 import com.rodcollab.cliq.core.model.BookingDomain
+import java.text.SimpleDateFormat
 import java.util.*
 
 object BookingRepositoryImpl : BookingRepository {
@@ -8,13 +9,20 @@ object BookingRepositoryImpl : BookingRepository {
     private val bookingListCache: MutableList<BookingDomain> = mutableListOf()
 
     override suspend fun fetchAll() = bookingListCache
-    override suspend fun add(bookedClientId: String, bookedClientName: String, bookedDate: String, bookedTime: Long) {
+    override suspend fun fetch(atDate: String) = bookingListCache.filter { it.bookedDate == atDate }
+
+    override suspend fun add(
+        bookedClientId: String,
+        bookedClientName: String,
+        bookedDate: String,
+        bookedTime: Long
+    ) {
         bookingListCache.add(
             BookingDomain(
                 id = UUID.randomUUID().toString(),
                 bookedClientId = bookedClientId,
                 bookedClientName = bookedClientName,
-                bookedDate = bookedDate,
+                bookedDate = formattedDate(bookedDate),
                 bookedTime = bookedTime,
             )
         )
