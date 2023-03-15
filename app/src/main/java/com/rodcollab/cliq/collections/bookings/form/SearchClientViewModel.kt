@@ -19,6 +19,18 @@ class SearchClientViewModel(
         MutableLiveData<ClientSelectedState>()
     }
 
+    private val lastClient: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
+    fun getLastClient() : LiveData<String>  {
+        viewModelScope.launch {
+            lastClient.value = getClientsUseCase().last().name
+
+        }
+        return lastClient
+    }
+
     data class ClientSelectedState(
         val wasSelected: Boolean,
         val clientSelected: ClientItem?
