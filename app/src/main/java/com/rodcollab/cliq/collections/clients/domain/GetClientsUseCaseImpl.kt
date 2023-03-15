@@ -11,7 +11,7 @@ class GetClientsUseCaseImpl(
             ClientItem(
                 id = it.id,
                 name = it.name,
-                reference = it.reference
+                lastName = it.lastName
             )
         }
     }

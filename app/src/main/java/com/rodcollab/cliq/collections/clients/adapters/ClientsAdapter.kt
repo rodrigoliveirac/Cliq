@@ -40,7 +40,7 @@ class ClientsAdapter :
 
         fun bind(clientItem: ClientItem) {
             binding.clientName.text = clientItem.name
-            binding.clientReference.text = clientItem.reference
+            binding.clientReference.text = clientItem.lastName
         }
 
     }

@@ -66,7 +66,7 @@ class BookingFormFragment : Fragment() {
     private fun setupMaterialDatePicker() {
         val builderDatePicker: MaterialDatePicker.Builder<*> =
             MaterialDatePicker.Builder.datePicker()
-        //.setTextInputFormat(SimpleDateFormat("dd/MM/yyyy"))
+
         val pickerDate = builderDatePicker.build()
         pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
 
