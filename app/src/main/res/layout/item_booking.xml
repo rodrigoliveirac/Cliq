@@ -77,13 +77,13 @@
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="#1C1B1F"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@id/bookedDateForm"
+                app:layout_constraintBottom_toTopOf="@id/bookedAddressForm"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Jeniffer Torres" />
 
             <TextView
-                android:id="@+id/bookedDateForm"
+                android:id="@+id/bookedAddressForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

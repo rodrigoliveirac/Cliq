@@ -13,11 +13,18 @@ class BookingFormViewModel(
     fun addBooking(
         bookedClientId: String,
         bookedClientName: String,
+        bookedClientAddress: String,
         bookedDate: String,
         time: Long,
     ) {
         viewModelScope.launch {
-            bookingRepository.add(bookedClientId, bookedClientName, bookedDate, time)
+            bookingRepository.add(
+                bookedClientId,
+                bookedClientName,
+                bookedClientAddress,
+                bookedDate,
+                time
+            )
             Log.d("clientIdViewModelFormAfterAdd", bookedClientId)
         }
     }

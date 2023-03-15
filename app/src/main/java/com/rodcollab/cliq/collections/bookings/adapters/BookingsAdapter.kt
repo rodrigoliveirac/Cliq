@@ -37,7 +37,7 @@ class BookingsAdapter : RecyclerView.Adapter<BookingsAdapter.BookingViewHolder>(
 
         fun bind(bookingItem: BookingItem) {
             binding.bookedClientName.text = bookingItem.bookedClientName
-            binding.bookedDateForm.text =  bookingItem.bookedDate
+            binding.bookedAddressForm.text =  bookingItem.bookedClientAddress
             binding.bookedTimeForm.text = formatTextTime(bookingItem.bookedTime)
         }
         private fun formatTextTime(ms: Long): String {
