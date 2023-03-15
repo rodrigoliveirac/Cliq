@@ -65,7 +65,7 @@ class BookingListFragment : Fragment() {
     }
 
     private fun setupDateTextHeader() {
-        viewModel.datePicked.observe(viewLifecycleOwner) {
+        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
             binding.date.text = it.textDate
         }
 
