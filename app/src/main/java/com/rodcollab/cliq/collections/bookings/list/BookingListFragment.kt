@@ -36,7 +36,7 @@ class BookingListFragment : Fragment() {
         val bookingsRepository = BookingRepositoryImpl(db)
         val getBookingsUseCase = GetBookingsUseCaseImpl(bookingsRepository)
 
-        BookingListViewModel.Factory(getBookingsUseCase)
+        BookingListViewModel.Factory(requireContext(), getBookingsUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +71,8 @@ class BookingListFragment : Fragment() {
             binding.date.text = it.textDate
         }
 
-        binding.arrowBack.setOnClickListener { viewModel.onArrowBack() }
-        binding.arrowForward.setOnClickListener { viewModel.onArrowForward() }
+        binding.arrowBack.setOnClickListener { viewModel.onArrowBack(requireContext()) }
+        binding.arrowForward.setOnClickListener { viewModel.onArrowForward(requireContext()) }
 
         toSelectDate()
     }
@@ -89,7 +89,7 @@ class BookingListFragment : Fragment() {
 
                 pickerDate.addOnPositiveButtonClickListener {
                     val date = dateFormatted(pickerDate.headerText)
-                    viewModel.pickDate(date)
+                    viewModel.pickDate(requireContext(), date)
                 }
             }
             true

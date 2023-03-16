@@ -78,6 +78,7 @@ class BookingFormFragment : Fragment() {
                 .setTextInputFormat(SimpleDateFormat(LocalDate.now().toString()))
 
         val pickerDate = builderDatePicker.build()
+
         pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
 
         pickerDate.addOnPositiveButtonClickListener {
