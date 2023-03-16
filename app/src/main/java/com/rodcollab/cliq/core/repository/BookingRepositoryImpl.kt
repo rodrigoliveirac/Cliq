@@ -7,40 +7,7 @@ import java.util.*
 
 object BookingRepositoryImpl : BookingRepository {
 
-    private val bookingListCache: MutableList<BookingDomain> = mutableListOf(
-        BookingDomain(
-            id = UUID.randomUUID().toString(),
-            bookedClientId = "bookedClientId",
-            bookedClientName = "rodrigo",
-            bookedClientAddress = "Rua frederico severo, 201",
-            bookedDate = "2023-03-15",
-            bookedTime = 60000L,
-        ),
-        BookingDomain(
-            id = UUID.randomUUID().toString(),
-            bookedClientId = "bookedClientId",
-            bookedClientName = "jeni",
-            bookedClientAddress = "Rua frederico severo, 201",
-            bookedDate = "2023-03-15",
-            bookedTime = 70000L,
-        ),
-        BookingDomain(
-            id = UUID.randomUUID().toString(),
-            bookedClientId = "bookedClientId",
-            bookedClientName = "francisco",
-            bookedClientAddress = "Rua frederico severo, 201",
-            bookedDate = "2023-03-16",
-            bookedTime = 60000L,
-        ),
-        BookingDomain(
-            id = UUID.randomUUID().toString(),
-            bookedClientId = "bookedClientId",
-            bookedClientName = "roxy",
-            bookedClientAddress = "Rua frederico severo, 201",
-            bookedDate = "2023-03-14",
-            bookedTime = 60000L,
-        )
-    )
+    private val bookingListCache: MutableList<BookingDomain> = mutableListOf()
 
     override suspend fun fetchAll() = bookingListCache
     override suspend fun fetch(atDate: String) = bookingListCache.filter { it.bookedDate == atDate }
