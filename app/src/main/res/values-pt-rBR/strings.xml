@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cliq</string>
+    <string name="title_clients_list">Clientes</string>
+    <string name="title_client_form">Novo Cliente</string>
+    <string name="client_name">Nome</string>
+    <string name="client_last_name">Sobrenome</string>
+    <string name="save">salvar</string>
+    <string name="title_booking_list">Agendamentos</string>
+    <string name="title_booking_form">Novo agendamento</string>
+    <string name="selecione_uma_data">Selecione a Data e o horário.</string>
+    <string name="title_nav_clients">Clientes</string>
+    <string name="title_nav_bookings">Agendamentos</string>
+    <string name="client_address">Endereço</string>
+    <string name="client_phone_number">Número de telefone</string>
+    <string name="client_birthday">Aniversário</string>
+    <string name="today">HOJE</string>
+    <string name="tomorrow">AMANHÃ</string>
+    <string name="yesterday">ONTEM</string>
+    <string name="select_client">Selecione o cliente</string>
+</resources>

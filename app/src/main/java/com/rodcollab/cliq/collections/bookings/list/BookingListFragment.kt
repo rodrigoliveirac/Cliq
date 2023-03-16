@@ -15,6 +15,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
 import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCaseImpl
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
 import java.text.SimpleDateFormat
@@ -31,10 +32,11 @@ class BookingListFragment : Fragment() {
     private lateinit var adapter: BookingsAdapter
 
     private val viewModel: BookingListViewModel by activityViewModels {
-        val bookingsRepository = BookingRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val bookingsRepository = BookingRepositoryImpl(db)
         val getBookingsUseCase = GetBookingsUseCaseImpl(bookingsRepository)
 
-        BookingListViewModel.Factory(getBookingsUseCase)
+        BookingListViewModel.Factory(requireContext(), getBookingsUseCase)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,8 +71,8 @@ class BookingListFragment : Fragment() {
             binding.date.text = it.textDate
         }
 
-        binding.arrowBack.setOnClickListener { viewModel.onArrowBack() }
-        binding.arrowForward.setOnClickListener { viewModel.onArrowForward() }
+        binding.arrowBack.setOnClickListener { viewModel.onArrowBack(requireContext()) }
+        binding.arrowForward.setOnClickListener { viewModel.onArrowForward(requireContext()) }
 
         toSelectDate()
     }
@@ -87,7 +89,7 @@ class BookingListFragment : Fragment() {
 
                 pickerDate.addOnPositiveButtonClickListener {
                     val date = dateFormatted(pickerDate.headerText)
-                    viewModel.pickDate(date)
+                    viewModel.pickDate(requireContext(), date)
                 }
             }
             true

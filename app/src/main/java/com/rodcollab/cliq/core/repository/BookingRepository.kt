@@ -4,9 +4,7 @@ import com.rodcollab.cliq.core.model.BookingDomain
 
 interface BookingRepository {
 
-    suspend fun fetchAll(): List<BookingDomain>
-
-    suspend fun fetch(atDate: String): List<BookingDomain>
+    suspend fun fetchByDate(atDate: String): List<BookingDomain>
 
     suspend fun add(bookedClientId: String, bookedClientName: String, bookedClientAddress:String, bookedDate: String, bookedTime: Long)
 

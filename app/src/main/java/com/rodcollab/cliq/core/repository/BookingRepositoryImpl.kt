@@ -1,16 +1,26 @@
 package com.rodcollab.cliq.core.repository
 
 import com.rodcollab.cliq.core.BrToUs
+import com.rodcollab.cliq.core.database.AppDatabase
+import com.rodcollab.cliq.core.database.entity.Booking
 import com.rodcollab.cliq.core.model.BookingDomain
 import java.text.SimpleDateFormat
 import java.util.*
 
-object BookingRepositoryImpl : BookingRepository {
+class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
 
-    private val bookingListCache: MutableList<BookingDomain> = mutableListOf()
-
-    override suspend fun fetchAll() = bookingListCache
-    override suspend fun fetch(atDate: String) = bookingListCache.filter { it.bookedDate == atDate }
+    private val bookingDao = appDatabase.bookingDao()
+    override suspend fun fetchByDate(atDate: String) = bookingDao.fetchByDate(atDate).map {
+        BookingDomain(
+            id = it.uuid,
+            bookedClientId = it.bookedClientId,
+            bookedClientName = it.bookedClientName,
+            bookedClientAddress = it.bookedClientAddress,
+            bookedDate = it.bookedDate,
+            bookedTime = it.bookedTime,
+            bookedService = it.bookedService
+        )
+    }
 
     override suspend fun add(
         bookedClientId: String,
@@ -19,26 +29,29 @@ object BookingRepositoryImpl : BookingRepository {
         bookedDate: String,
         bookedTime: Long
     ) {
-        bookingListCache.add(
-            BookingDomain(
-                id = UUID.randomUUID().toString(),
-                bookedClientId = bookedClientId,
-                bookedClientName = bookedClientName,
-                bookedClientAddress = bookedClientAddress,
-                bookedDate = formattedDate(bookedDate),
-                bookedTime = bookedTime,
-            )
+        val booking = Booking(
+            uuid = UUID.randomUUID().toString(),
+            bookedClientId = bookedClientId,
+            bookedClientName = bookedClientName,
+            bookedClientAddress = bookedClientAddress,
+            bookedDate = formattedDate(bookedDate),
+            bookedTime = bookedTime,
+            bookedService = null
+        )
+        bookingDao.insert(
+            booking
         )
     }
 
-    private fun formattedDate(bookedDate: String) : String {
-       return when(Locale.getDefault().language) {
+    private fun formattedDate(bookedDate: String): String {
+        return when (Locale.getDefault().language) {
             "pt" -> BrToUs.format(bookedDate)
-             else -> getDefaultUS(bookedDate)
+            else -> getDefaultUS(bookedDate)
         }
 
 
     }
+
     private fun getDefaultUS(bookedDate: String): String {
         val inputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
         val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)

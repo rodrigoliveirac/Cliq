@@ -13,6 +13,7 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
 
@@ -25,7 +26,8 @@ class ClientListFragment : Fragment() {
     private lateinit var adapter: ClientsAdapter
 
     private val viewModel: ClientListViewModel by activityViewModels {
-        val clientRepository = ClientRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val clientRepository = ClientRepositoryImpl(db)
         val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
         ClientListViewModel.Factory(getClientsUseCase)
     }

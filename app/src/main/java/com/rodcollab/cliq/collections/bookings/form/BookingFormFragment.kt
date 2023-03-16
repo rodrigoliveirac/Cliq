@@ -16,6 +16,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.core.ConversionUtils
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
@@ -77,6 +78,7 @@ class BookingFormFragment : Fragment() {
                 .setTextInputFormat(SimpleDateFormat(LocalDate.now().toString()))
 
         val pickerDate = builderDatePicker.build()
+
         pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
 
         pickerDate.addOnPositiveButtonClickListener {
@@ -135,11 +137,13 @@ class BookingFormFragment : Fragment() {
 
 
     private fun injection(): BookingRepositoryImpl {
-        return BookingRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        return BookingRepositoryImpl(db)
     }
 
     private fun injectionSearchClientViewModel(): Pair<GetClientsUseCaseImpl, OnQueryTextChangeUseCaseImpl> {
-        val clientRepository = ClientRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val clientRepository = ClientRepositoryImpl(db)
         val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
         val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
 

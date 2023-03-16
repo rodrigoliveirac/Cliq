@@ -9,7 +9,7 @@ class GetBookingsUseCaseImpl(
     GetBookingsUseCase {
 
     override suspend fun invoke(atDate: String): List<BookingItem> {
-        return bookingsRepository.fetch(atDate).map { bookedClient ->
+        return bookingsRepository.fetchByDate(atDate).map { bookedClient ->
             BookingItem(
                 id = bookedClient.id,
                 bookedClientName = bookedClient.bookedClientName,

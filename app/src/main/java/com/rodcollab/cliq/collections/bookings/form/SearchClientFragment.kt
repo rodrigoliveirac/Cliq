@@ -13,6 +13,7 @@ import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.Utils
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentSearchClientsBinding
 
@@ -23,7 +24,8 @@ class SearchClientFragment : Fragment() {
 
     private lateinit var adapter: SearchClientListAdapter
     private val viewModel: SearchClientViewModel by activityViewModels {
-        val clientRepository = ClientRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val clientRepository = ClientRepositoryImpl(db)
         val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
         val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
         SearchClientViewModel.Factory(getClientsUseCase, onQueryTextChangeUseCase)
