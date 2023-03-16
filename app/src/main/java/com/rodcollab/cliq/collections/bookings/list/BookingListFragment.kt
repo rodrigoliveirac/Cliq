@@ -15,6 +15,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
 import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCaseImpl
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
 import java.text.SimpleDateFormat
@@ -31,7 +32,8 @@ class BookingListFragment : Fragment() {
     private lateinit var adapter: BookingsAdapter
 
     private val viewModel: BookingListViewModel by activityViewModels {
-        val bookingsRepository = BookingRepositoryImpl
+        val db = AppDatabase.getInstance(requireContext())
+        val bookingsRepository = BookingRepositoryImpl(db)
         val getBookingsUseCase = GetBookingsUseCaseImpl(bookingsRepository)
 
         BookingListViewModel.Factory(getBookingsUseCase)

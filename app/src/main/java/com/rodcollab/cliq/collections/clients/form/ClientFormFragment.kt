@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientFormBinding
 
@@ -20,7 +21,8 @@ class ClientFormFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ClientFormViewModel by activityViewModels {
-        ClientFormViewModel.Factory(ClientRepositoryImpl)
+        val db = AppDatabase.getInstance(requireContext())
+        ClientFormViewModel.Factory(ClientRepositoryImpl(db))
     }
 
     override fun onCreateView(
