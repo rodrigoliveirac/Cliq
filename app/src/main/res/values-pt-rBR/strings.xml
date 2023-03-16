@@ -17,4 +17,5 @@
     <string name="today">HOJE</string>
     <string name="tomorrow">AMANHÃ</string>
     <string name="yesterday">ONTEM</string>
+    <string name="select_client">Selecione o cliente</string>
 </resources>

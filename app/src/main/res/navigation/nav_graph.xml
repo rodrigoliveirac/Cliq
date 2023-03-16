@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/searchClientFragment"
         android:name="com.rodcollab.cliq.collections.bookings.form.SearchClientFragment"
-        android:label="Select client">
+        android:label="@string/select_client">
         <action
             android:id="@+id/action_searchClient_to_bookingForm"
             app:destination="@id/bookingFormFragment"
