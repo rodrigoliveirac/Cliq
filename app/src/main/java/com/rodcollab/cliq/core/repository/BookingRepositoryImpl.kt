@@ -1,10 +1,8 @@
 package com.rodcollab.cliq.core.repository
 
-import com.rodcollab.cliq.core.BrToUs
 import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.database.entity.Booking
 import com.rodcollab.cliq.core.model.BookingDomain
-import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
@@ -34,7 +32,7 @@ class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
             bookedClientId = bookedClientId,
             bookedClientName = bookedClientName,
             bookedClientAddress = bookedClientAddress,
-            bookedDate = formattedDate(bookedDate),
+            bookedDate = bookedDate,
             bookedTime = bookedTime,
             bookedService = null
         )
