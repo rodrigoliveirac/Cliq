@@ -21,7 +21,6 @@ import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class BookingFormFragment : Fragment() {
@@ -70,25 +69,26 @@ class BookingFormFragment : Fragment() {
         saveNewBooking()
     }
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     private fun setupMaterialDatePicker() {
         val builderDatePicker: MaterialDatePicker.Builder<*> =
             MaterialDatePicker.Builder.datePicker()
-                .setTextInputFormat(SimpleDateFormat(LocalDate.now().toString()))
+                .setTextInputFormat(SimpleDateFormat("dd/MM/yyyy"))
 
         val pickerDate = builderDatePicker.build()
 
         pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
 
-        pickerDate.addOnPositiveButtonClickListener {
+        pickerDate.addOnPositiveButtonClickListener { dateInLong ->
 
             val builderTimePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_12H)
             val pickerTime = builderTimePicker.build()
 
             pickerTime.show(this.parentFragmentManager, "fragment_tag")
 
-            viewModel.saveValueDate(pickerDate.headerText)
+            viewModel.saveValueDate(dateInLong as Long)
 
             pickerTime.addOnPositiveButtonClickListener {
 
@@ -126,8 +126,8 @@ class BookingFormFragment : Fragment() {
             viewModelSearchClient.clientSelected().observe(viewLifecycleOwner) { client ->
                 bookedClientId = client.clientSelected?.id.toString()
             }
-            viewModel.getValueDate.observe(viewLifecycleOwner) {
-                bookedDate = it
+            viewModel.getValueDateSelected.observe(viewLifecycleOwner) { valueDateSelected ->
+                bookedDate = valueDateSelected
             }
             viewModel.addBooking(bookedClientId, bookedClientName, bookedClientAddress, bookedDate, bookedTime)
             viewModelSearchClient.resetClientSelected()

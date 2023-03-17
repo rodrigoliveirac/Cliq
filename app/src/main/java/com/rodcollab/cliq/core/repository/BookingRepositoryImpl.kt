@@ -40,20 +40,4 @@ class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
             booking
         )
     }
-
-    private fun formattedDate(bookedDate: String): String {
-        return when (Locale.getDefault().language) {
-            "pt" -> BrToUs.format(bookedDate)
-            else -> getDefaultUS(bookedDate)
-        }
-
-
-    }
-
-    private fun getDefaultUS(bookedDate: String): String {
-        val inputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
-        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val date = inputDateFormat.parse(bookedDate)
-        return outputDateFormat.format(date!!)
-    }
 }

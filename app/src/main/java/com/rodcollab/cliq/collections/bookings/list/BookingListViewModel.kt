@@ -1,5 +1,6 @@
 package com.rodcollab.cliq.collections.bookings.list
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -9,6 +10,8 @@ import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCase
 import com.rodcollab.cliq.collections.bookings.model.BookingItem
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -22,29 +25,39 @@ class BookingListViewModel(
         MutableLiveData<UiState>(
             UiState(
                 bookingList = emptyList(),
-                currentDate = LocalDate.now().toString(),
-                textDate = context.getString(R.string.today)
+                currentDate = todayByDefault(),
+                textDate = getStringForToday(context)
             )
         )
     }
 
-    fun pickDate(context: Context, datePicked: String) {
+
+
+    private fun todayByDefault() = now().toString()
+
+    fun pickDate(context: Context, datePicked: Long) {
+
+        val date = getDate(datePicked)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
+        val selectedDate = LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1)
+
         viewModelScope.launch {
             uiState.postValue(
                 UiState(
-                    getBookingUseCase(datePicked),
-                    currentDate = datePicked,
-                    textDate = textFormatted(context, datePicked)
+                    bookingList = getBookingUseCase(formatDate(datePicked)),
+                    currentDate = formatDate(datePicked),
+                    textDate = formatText(context, localDateToString(selectedDate))
                 )
             )
+
         }
     }
 
-    private fun textFormatted(context: Context, datePicked: String): String {
+    private fun formatText(context: Context, datePicked: String): String {
         return when (datePicked) {
-            LocalDate.now().toString() -> context.getString(R.string.today)
-            LocalDate.now().plusDays(1).toString() -> context.getString(R.string.tomorrow)
-            LocalDate.now().minusDays(1).toString() -> context.getString(R.string.yesterday)
+            localDateToString(now()) -> getStringForToday(context)
+            localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)
+            localDateToString(previousDayFromNow()) -> getStringForYesterday(context)
             else -> datePicked
         }
     }
@@ -92,7 +105,7 @@ class BookingListViewModel(
                         localDate.plusDays(1).toString()
                     ),
                     currentDate = localDate.plusDays(1).toString(),
-                    textDate = textFormatted(context, localDate.plusDays(1).toString())
+                    textDate = formatText(context, localDateToString(localDate.plusDays(1)))
                 )
             )
         }
@@ -107,10 +120,32 @@ class BookingListViewModel(
                         localDate.minusDays(1).toString()
                     ),
                     currentDate = localDate.minusDays(1).toString(),
-                    textDate = textFormatted(context, localDate.minusDays(1).toString())
+                    textDate = formatText(
+                        context,
+                        localDateToString(localDate.minusDays(1))
+                    )
                 )
             )
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun formatDate(dateSelected: Long): String {
+        val date = getDate(dateSelected)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
+        return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1)
+            .toString()
+    }
+
+    private fun localDateToString(localDate: LocalDate): String {
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy").withZone(ZoneId.systemDefault())
+        return formatter.format(localDate)
+    }
+
+    private fun getDate(dateSelected: Long): Date {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = dateSelected
+        return calendar.time
     }
 
     data class UiState(
