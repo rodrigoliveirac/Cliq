@@ -49,6 +49,18 @@ class BookingListViewModel(
         }
     }
 
+    private fun getStringForYesterday(context: Context) = context.getString(R.string.yesterday)
+
+    private fun getStringForTomorrow(context: Context) = context.getString(R.string.tomorrow)
+
+    private fun getStringForToday(context: Context) = context.getString(R.string.today)
+
+    private fun previousDayFromNow() = now().minusDays(1)
+
+    private fun nextDayFromNow() = now().plusDays(1)
+
+    private fun now() = LocalDate.now()
+
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
     }
