@@ -88,19 +88,12 @@ class BookingListFragment : Fragment() {
                 pickerDate.show(this.parentFragmentManager, "DATE_PICKER")
 
                 pickerDate.addOnPositiveButtonClickListener {
-                    val date = dateFormatted(pickerDate.headerText)
+                    val date = it as Long
                     viewModel.pickDate(requireContext(), date)
                 }
             }
             true
         }
-    }
-
-    private fun dateFormatted(pickerDate: String): String {
-        val inputDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
-        val outputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val date = inputDateFormat.parse(pickerDate)
-        return outputDateFormat.format(date!!)
     }
 
     private fun observeList() {

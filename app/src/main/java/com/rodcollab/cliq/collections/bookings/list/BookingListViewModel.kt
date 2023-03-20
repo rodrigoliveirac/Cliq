@@ -1,18 +1,17 @@
 package com.rodcollab.cliq.collections.bookings.list
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCase
 import com.rodcollab.cliq.collections.bookings.model.BookingItem
+import com.rodcollab.cliq.core.DateFormat.formatDate
+import com.rodcollab.cliq.core.DateFormat.localDateToString
+import com.rodcollab.cliq.core.DateFormat.toLocalDate
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.*
 
-
-@RequiresApi(Build.VERSION_CODES.O)
 class BookingListViewModel(
     context: Context,
     private val getBookingUseCase: GetBookingsUseCase
@@ -22,32 +21,49 @@ class BookingListViewModel(
         MutableLiveData<UiState>(
             UiState(
                 bookingList = emptyList(),
-                currentDate = LocalDate.now().toString(),
-                textDate = context.getString(R.string.today)
+                currentDate = todayByDefault(),
+                textDate = getStringForToday(context)
             )
         )
     }
 
-    fun pickDate(context: Context, datePicked: String) {
+
+    private fun todayByDefault() = now().toString()
+
+    fun pickDate(context: Context, datePicked: Long) {
+
         viewModelScope.launch {
             uiState.postValue(
                 UiState(
-                    getBookingUseCase(datePicked),
-                    currentDate = datePicked,
-                    textDate = textFormatted(context, datePicked)
+                    bookingList = getBookingUseCase(formatDate(datePicked)),
+                    currentDate = formatDate(datePicked),
+                    textDate = formatText(context, localDateToString(toLocalDate(datePicked)))
                 )
             )
+
         }
     }
 
-    private fun textFormatted(context: Context, datePicked: String): String {
+    private fun formatText(context: Context, datePicked: String): String {
         return when (datePicked) {
-            LocalDate.now().toString() -> context.getString(R.string.today)
-            LocalDate.now().plusDays(1).toString() -> context.getString(R.string.tomorrow)
-            LocalDate.now().minusDays(1).toString() -> context.getString(R.string.yesterday)
+            localDateToString(now()) -> getStringForToday(context)
+            localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)
+            localDateToString(previousDayFromNow()) -> getStringForYesterday(context)
             else -> datePicked
         }
     }
+
+    private fun getStringForYesterday(context: Context) = context.getString(R.string.yesterday)
+
+    private fun getStringForTomorrow(context: Context) = context.getString(R.string.tomorrow)
+
+    private fun getStringForToday(context: Context) = context.getString(R.string.today)
+
+    private fun previousDayFromNow() = now().minusDays(1)
+
+    private fun nextDayFromNow() = now().plusDays(1)
+
+    private fun now() = LocalDate.now()
 
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
@@ -80,7 +96,7 @@ class BookingListViewModel(
                         localDate.plusDays(1).toString()
                     ),
                     currentDate = localDate.plusDays(1).toString(),
-                    textDate = textFormatted(context, localDate.plusDays(1).toString())
+                    textDate = formatText(context, localDateToString(localDate.plusDays(1)))
                 )
             )
         }
@@ -95,7 +111,10 @@ class BookingListViewModel(
                         localDate.minusDays(1).toString()
                     ),
                     currentDate = localDate.minusDays(1).toString(),
-                    textDate = textFormatted(context, localDate.minusDays(1).toString())
+                    textDate = formatText(
+                        context,
+                        localDateToString(localDate.minusDays(1))
+                    )
                 )
             )
         }
