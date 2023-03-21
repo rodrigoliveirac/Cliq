@@ -1,10 +1,8 @@
 package com.rodcollab.cliq.collections.bookings.list
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -17,10 +15,8 @@ import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
 
 @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
-@RequiresApi(Build.VERSION_CODES.O)
 class BookingListFragment : Fragment() {
 
     private var _binding: FragmentBookingListBinding? = null
