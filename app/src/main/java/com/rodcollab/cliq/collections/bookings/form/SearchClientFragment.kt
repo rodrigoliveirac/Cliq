@@ -13,7 +13,9 @@ import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.Utils
 import com.rodcollab.cliq.databinding.FragmentSearchClientsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchClientFragment : Fragment() {
 
     private var _binding: FragmentSearchClientsBinding? = null

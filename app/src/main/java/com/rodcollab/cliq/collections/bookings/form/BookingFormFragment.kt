@@ -16,9 +16,11 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rodcollab.cliq.core.ConversionUtils
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class BookingFormFragment : Fragment() {
 
     private var _binding: FragmentBookingFormBinding? = null

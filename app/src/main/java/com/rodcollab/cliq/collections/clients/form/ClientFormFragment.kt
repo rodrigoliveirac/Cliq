@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.rodcollab.cliq.databinding.FragmentClientFormBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClientFormFragment : Fragment() {
 
     private var _binding: FragmentClientFormBinding? = null

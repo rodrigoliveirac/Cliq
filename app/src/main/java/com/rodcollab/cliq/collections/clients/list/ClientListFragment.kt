@@ -13,7 +13,9 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClientListFragment : Fragment() {
 
     private var _binding: FragmentClientListBinding? = null

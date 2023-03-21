@@ -13,10 +13,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 
 @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
+@AndroidEntryPoint
 class BookingListFragment : Fragment() {
 
     private var _binding: FragmentBookingListBinding? = null
