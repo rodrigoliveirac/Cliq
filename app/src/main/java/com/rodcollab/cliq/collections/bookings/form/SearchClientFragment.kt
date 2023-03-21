@@ -95,7 +95,7 @@ class SearchClientFragment : Fragment() {
 
         viewModel.getLastClient()
             .observe(viewLifecycleOwner) {
-                binding.searchViewClients.setQuery(it, false)
+                binding.searchViewClients.setQuery(it.name, false)
             }
 
 
