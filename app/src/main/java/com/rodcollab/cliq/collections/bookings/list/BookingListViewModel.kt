@@ -1,19 +1,25 @@
 package com.rodcollab.cliq.collections.bookings.list
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCase
 import com.rodcollab.cliq.collections.bookings.model.BookingItem
 import com.rodcollab.cliq.core.DateFormat.formatDate
 import com.rodcollab.cliq.core.DateFormat.localDateToString
 import com.rodcollab.cliq.core.DateFormat.toLocalDate
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
+import javax.inject.Inject
 
-class BookingListViewModel(
-    context: Context,
+@HiltViewModel
+class BookingListViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     private val getBookingUseCase: GetBookingsUseCase
 ) : ViewModel() {
 
@@ -125,12 +131,4 @@ class BookingListViewModel(
         val currentDate: String,
         val textDate: String
     )
-
-    @Suppress("UNCHECKED_CAST")
-    class Factory(private val context: Context, private val getBookingUseCase: GetBookingsUseCase) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return BookingListViewModel(context, getBookingUseCase) as T
-        }
-    }
 }

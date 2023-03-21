@@ -5,16 +5,13 @@ import android.view.*
 import android.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodcollab.cliq.R
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.collections.clients.form.SearchClientListAdapter
 import com.rodcollab.cliq.core.Utils
-import com.rodcollab.cliq.core.database.AppDatabase
-import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentSearchClientsBinding
 
 class SearchClientFragment : Fragment() {
@@ -23,16 +20,11 @@ class SearchClientFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: SearchClientListAdapter
-    private val viewModel: SearchClientViewModel by activityViewModels {
-        val db = AppDatabase.getInstance(requireContext())
-        val clientRepository = ClientRepositoryImpl(db)
-        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
-        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
-        SearchClientViewModel.Factory(getClientsUseCase, onQueryTextChangeUseCase)
-    }
+    private lateinit var viewModel: SearchClientViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[SearchClientViewModel::class.java]
         adapter = SearchClientListAdapter(viewModel)
     }
 

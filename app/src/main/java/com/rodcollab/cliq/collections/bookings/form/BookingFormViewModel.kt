@@ -1,14 +1,18 @@
 package com.rodcollab.cliq.collections.bookings.form
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.rodcollab.cliq.core.DateFormat.formatDate
 import com.rodcollab.cliq.core.repository.BookingRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.*
-import java.util.*
+import javax.inject.Inject
 
-class BookingFormViewModel(
-    private val bookingRepository: BookingRepository
+@HiltViewModel
+class BookingFormViewModel @Inject constructor(
+    private val bookingRepository: BookingRepository,
 ) : ViewModel() {
 
     fun addBooking(
@@ -38,15 +42,6 @@ class BookingFormViewModel(
 
     fun saveValueDate(dateSelected: Long) {
         setValueDate.value = formatDate(dateSelected)
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    class Factory(
-        private val bookingRepository: BookingRepository
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return BookingFormViewModel(bookingRepository) as T
-        }
     }
 }
 

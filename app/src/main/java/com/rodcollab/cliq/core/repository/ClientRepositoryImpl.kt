@@ -1,14 +1,12 @@
 package com.rodcollab.cliq.core.repository
 
-import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.database.ClientDao
 import com.rodcollab.cliq.core.database.entity.Client
 import com.rodcollab.cliq.core.model.ClientDomain
 import java.util.*
+import javax.inject.Inject
 
-class ClientRepositoryImpl(appDatabase: AppDatabase) : ClientRepository {
-
-    private var clientDao: ClientDao = appDatabase.clientDao()
+class ClientRepositoryImpl @Inject constructor(private val dao: ClientDao) : ClientRepository {
 
     override suspend fun add(
         name: String,
@@ -26,10 +24,10 @@ class ClientRepositoryImpl(appDatabase: AppDatabase) : ClientRepository {
             birthday = birthday
         )
 
-        clientDao.insert(client)
+        dao.insert(client)
     }
 
-    override suspend fun fetchClients() = clientDao.fetchAllClients().map {
+    override suspend fun fetchClients() = dao.fetchAllClients().map {
         ClientDomain(
             id = it.uuid,
             name = it.name,

@@ -1,14 +1,14 @@
 package com.rodcollab.cliq.core.repository
 
-import com.rodcollab.cliq.core.database.AppDatabase
+import com.rodcollab.cliq.core.database.BookingDao
 import com.rodcollab.cliq.core.database.entity.Booking
 import com.rodcollab.cliq.core.model.BookingDomain
 import java.util.*
+import javax.inject.Inject
 
-class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
+class BookingRepositoryImpl @Inject constructor(private val dao: BookingDao) : BookingRepository {
 
-    private val bookingDao = appDatabase.bookingDao()
-    override suspend fun fetchByDate(atDate: String) = bookingDao.fetchByDate(atDate).map {
+    override suspend fun fetchByDate(atDate: String) = dao.fetchByDate(atDate).map {
         BookingDomain(
             id = it.uuid,
             bookedClientId = it.bookedClientId,
@@ -36,7 +36,7 @@ class BookingRepositoryImpl(appDatabase: AppDatabase) : BookingRepository {
             bookedTime = bookedTime,
             bookedService = null
         )
-        bookingDao.insert(
+        dao.insert(
             booking
         )
     }

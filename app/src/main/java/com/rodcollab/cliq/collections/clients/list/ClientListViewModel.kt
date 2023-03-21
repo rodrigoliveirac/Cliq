@@ -3,9 +3,12 @@ package com.rodcollab.cliq.collections.clients.list
 import androidx.lifecycle.*
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
 import com.rodcollab.cliq.collections.clients.model.ClientItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ClientListViewModel(private val getClientsUseCase: GetClientsUseCase) : ViewModel() {
+@HiltViewModel
+class ClientListViewModel @Inject constructor(private val getClientsUseCase: GetClientsUseCase) : ViewModel() {
 
     private val uiState: MutableLiveData<UiState> by lazy {
         MutableLiveData<UiState>(UiState(clientList = emptyList()))
@@ -27,14 +30,4 @@ class ClientListViewModel(private val getClientsUseCase: GetClientsUseCase) : Vi
 
     data class UiState(val clientList: List<ClientItem>)
 
-    /**
-     * ViewModel Factory needed to provide Repository injection to ViewModel.
-     */
-    @Suppress("UNCHECKED_CAST")
-    class Factory(private val getClientsUseCase: GetClientsUseCase) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ClientListViewModel(getClientsUseCase) as T
-        }
-    }
 }

@@ -7,18 +7,14 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
 import com.rodcollab.cliq.core.ConversionUtils
-import com.rodcollab.cliq.core.database.AppDatabase
-import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
-import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,14 +24,13 @@ class BookingFormFragment : Fragment() {
     private var _binding: FragmentBookingFormBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BookingFormViewModel by activityViewModels {
-        val bookingsRepository = injection()
-        BookingFormViewModel.Factory(bookingsRepository)
-    }
+    private lateinit var viewModel: BookingFormViewModel
+    private lateinit var viewModelSearchClient: SearchClientViewModel
 
-    private val viewModelSearchClient: SearchClientViewModel by activityViewModels {
-        val (getClientsUseCase, onQueryTextChangeUseCase) = injectionSearchClientViewModel()
-        SearchClientViewModel.Factory(getClientsUseCase, onQueryTextChangeUseCase)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[BookingFormViewModel::class.java]
+        viewModelSearchClient = ViewModelProvider(this)[SearchClientViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -138,20 +133,4 @@ class BookingFormFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
-
-
-    private fun injection(): BookingRepositoryImpl {
-        val db = AppDatabase.getInstance(requireContext())
-        return BookingRepositoryImpl(db)
-    }
-
-    private fun injectionSearchClientViewModel(): Pair<GetClientsUseCaseImpl, OnQueryTextChangeUseCaseImpl> {
-        val db = AppDatabase.getInstance(requireContext())
-        val clientRepository = ClientRepositoryImpl(db)
-        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
-        val onQueryTextChangeUseCase = OnQueryTextChangeUseCaseImpl(getClientsUseCase)
-
-        return Pair(getClientsUseCase, onQueryTextChangeUseCase)
-    }
-
 }

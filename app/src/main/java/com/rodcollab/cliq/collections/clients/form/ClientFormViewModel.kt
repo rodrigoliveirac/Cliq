@@ -3,12 +3,14 @@ package com.rodcollab.cliq.collections.clients.form
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.rodcollab.cliq.core.repository.ClientRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ClientFormViewModel(
+@HiltViewModel
+class ClientFormViewModel @Inject constructor(
     private val clientRepository: ClientRepository
 ) : ViewModel() {
 
@@ -35,14 +37,4 @@ class ClientFormViewModel(
         _getValueDate.value = headerText
     }
 
-    /**
-     * ViewModel Factory needed to provide Repository injection to ViewModel.
-     */
-    @Suppress("UNCHECKED_CAST")
-    class Factory(private val repository: ClientRepository) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ClientFormViewModel(repository) as T
-        }
-    }
 }

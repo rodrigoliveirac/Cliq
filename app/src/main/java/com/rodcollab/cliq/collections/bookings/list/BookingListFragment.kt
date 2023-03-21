@@ -7,16 +7,13 @@ import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.bookings.adapters.BookingsAdapter
-import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCaseImpl
-import com.rodcollab.cliq.core.database.AppDatabase
-import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingListBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -31,16 +28,11 @@ class BookingListFragment : Fragment() {
 
     private lateinit var adapter: BookingsAdapter
 
-    private val viewModel: BookingListViewModel by activityViewModels {
-        val db = AppDatabase.getInstance(requireContext())
-        val bookingsRepository = BookingRepositoryImpl(db)
-        val getBookingsUseCase = GetBookingsUseCaseImpl(bookingsRepository)
-
-        BookingListViewModel.Factory(requireContext(), getBookingsUseCase)
-    }
+    private lateinit var viewModel: BookingListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[BookingListViewModel::class.java]
         lifecycle.addObserver(BookingListLifecycleObserver(viewModel))
         adapter = BookingsAdapter()
     }
