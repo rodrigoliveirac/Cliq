@@ -19,13 +19,21 @@ class SearchClientViewModel(
         MutableLiveData<ClientSelectedState>()
     }
 
-    private val lastClient: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    private val lastClient: MutableLiveData<LastClient> by lazy {
+        MutableLiveData<LastClient>(LastClient(name = ""))
     }
 
-    fun getLastClient() : LiveData<String>  {
+    data class LastClient(val name: String)
+
+    fun getLastClient() : LiveData<LastClient>  {
         viewModelScope.launch {
-            lastClient.value = getClientsUseCase().last().name
+            lastClient.value?.let {
+                lastClient.value = if(getClientsUseCase().isEmpty()) {
+                    it.copy(name = "")
+                } else {
+                    it.copy(name = getClientsUseCase().last().name)
+                }
+            }
 
         }
         return lastClient

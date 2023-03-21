@@ -1,5 +1,6 @@
 package com.rodcollab.cliq.core
 
+import android.util.Log
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -11,6 +12,7 @@ object DateFormat {
     fun formatDate(dateSelected: Long): String {
         val date = getDate(dateSelected)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
+        Log.d("date_selected", LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).toString())
         return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1)
             .toString()
     }

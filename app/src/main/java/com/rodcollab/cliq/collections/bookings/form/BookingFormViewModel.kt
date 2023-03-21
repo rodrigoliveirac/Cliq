@@ -1,13 +1,10 @@
 package com.rodcollab.cliq.collections.bookings.form
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import com.rodcollab.cliq.core.DateFormat.formatDate
 import com.rodcollab.cliq.core.repository.BookingRepository
 import kotlinx.coroutines.launch
 import java.time.*
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class BookingFormViewModel(
@@ -30,7 +27,6 @@ class BookingFormViewModel(
                 bookedDate,
                 time
             )
-            Log.d("clientIdViewModelFormAfterAdd", bookedClientId)
         }
     }
 
@@ -40,28 +36,8 @@ class BookingFormViewModel(
 
     val getValueDateSelected: LiveData<String> = setValueDate
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     fun saveValueDate(dateSelected: Long) {
-        setValueDate.value = formattedDate(dateSelected)
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun formattedDate(dateSelected: Long): String {
-
-        val date = getDate(dateSelected)
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
-
-        val selectedDate = LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1).toString()
-        Log.d("datePicked", selectedDate)
-        return selectedDate
-    }
-
-    private fun getDate(dateSelected: Long) : Date {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = dateSelected
-        return calendar.time
+        setValueDate.value = formatDate(dateSelected)
     }
 
     @Suppress("UNCHECKED_CAST")
