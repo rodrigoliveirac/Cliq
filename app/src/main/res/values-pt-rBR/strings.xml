@@ -18,4 +18,5 @@
     <string name="tomorrow">AMANHÃ</string>
     <string name="yesterday">ONTEM</string>
     <string name="select_client">Selecione o cliente</string>
+    <string name="search_client">Buscar cliente</string>
 </resources>
