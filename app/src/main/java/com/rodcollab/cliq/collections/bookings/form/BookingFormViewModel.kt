@@ -1,6 +1,5 @@
 package com.rodcollab.cliq.collections.bookings.form
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.rodcollab.cliq.core.DateFormat.formatDate
 import com.rodcollab.cliq.core.repository.BookingRepository
@@ -28,7 +27,6 @@ class BookingFormViewModel(
                 bookedDate,
                 time
             )
-            Log.d("clientIdViewModelFormAfterAdd", bookedClientId)
         }
     }
 

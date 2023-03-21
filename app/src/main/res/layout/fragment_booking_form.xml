@@ -110,7 +110,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:text="@string/selecione_uma_data"
-            android:textColor="@drawable/bg"
+            android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/line"
