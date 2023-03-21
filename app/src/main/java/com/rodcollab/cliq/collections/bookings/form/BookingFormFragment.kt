@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -18,6 +20,7 @@ import com.rodcollab.cliq.core.database.AppDatabase
 import com.rodcollab.cliq.core.repository.BookingRepositoryImpl
 import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentBookingFormBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class BookingFormFragment : Fragment() {
@@ -45,6 +48,7 @@ class BookingFormFragment : Fragment() {
         return binding.root
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,9 +68,15 @@ class BookingFormFragment : Fragment() {
 
         saveNewBooking()
     }
+
+
+    @SuppressLint("SimpleDateFormat")
     private fun setupMaterialDatePicker() {
         val builderDatePicker: MaterialDatePicker.Builder<*> =
             MaterialDatePicker.Builder.datePicker()
+                .setTextInputFormat(SimpleDateFormat("dd/MM/yyyy")).setCalendarConstraints(
+                    calendarConstraints()
+                )
 
         val pickerDate = builderDatePicker.build()
 
@@ -90,6 +100,9 @@ class BookingFormFragment : Fragment() {
         }
 
     }
+
+    private fun calendarConstraints() =
+        CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
 
     override fun onDestroyView() {
         super.onDestroyView()
