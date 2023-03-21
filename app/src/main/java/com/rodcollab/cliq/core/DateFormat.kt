@@ -11,7 +11,7 @@ object DateFormat {
     fun formatDate(dateSelected: Long): String {
         val date = getDate(dateSelected)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
-        return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1)
+        return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter)
             .toString()
     }
 
@@ -23,7 +23,7 @@ object DateFormat {
     fun toLocalDate(datePicked: Long): LocalDate {
         val date = getDate(datePicked)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
-        return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1)
+        return LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter)
     }
 
     private fun getDate(dateSelected: Long): Date {

@@ -1,8 +1,6 @@
 package com.rodcollab.cliq.collections.bookings.form
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.rodcollab.cliq.core.repository.BookingRepository
 import kotlinx.coroutines.launch
@@ -40,20 +38,17 @@ class BookingFormViewModel(
 
     val getValueDateSelected: LiveData<String> = setValueDate
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     fun saveValueDate(dateSelected: Long) {
         setValueDate.value = formattedDate(dateSelected)
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun formattedDate(dateSelected: Long): String {
 
         val date = getDate(dateSelected)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault())
 
-        val selectedDate = LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).plusDays(1).toString()
+        val selectedDate = LocalDate.parse(formatter.format(date.toInstant()).toString(), formatter).toString()
         Log.d("datePicked", selectedDate)
         return selectedDate
     }
