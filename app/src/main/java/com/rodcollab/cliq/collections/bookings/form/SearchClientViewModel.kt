@@ -49,7 +49,7 @@ class SearchClientViewModel @Inject constructor(
     )
 
     fun clientSelected(): LiveData<ClientSelectedState> {
-        Log.d("clientSelected_", clientSelectedState.value.toString())
+
         return clientSelectedState
     }
 
@@ -68,12 +68,7 @@ class SearchClientViewModel @Inject constructor(
 
             val clientSelected = getOnSelectedClientUseCase(id)
 
-            clientSelectedState.value?.let {
-                clientSelectedState.value = it.copy(
-                    wasSelected = true,
-                    clientSelected = clientSelected
-                )
-            }
+            clientSelectedState.postValue(ClientSelectedState(true, clientSelected))
 
             Log.d("clientIdViewModelSearch", id)
         }
