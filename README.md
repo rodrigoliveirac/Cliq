@@ -1,4 +1,4 @@
-# Cliq
+# Cliq 🗒️
 ###### Organize your list of clients and bookings with Cliq - the best workmate ever! :)
 ## Table of contents
 * [Concept](#concept)
