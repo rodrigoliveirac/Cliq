@@ -87,10 +87,10 @@ class SearchClientFragment : Fragment() {
 
     private fun updateListAccordingToOnQueryChanged() {
 
-//        viewModel.getLastClient()
-//            .observe(viewLifecycleOwner) {
-//                binding.searchViewClients.setQuery(it.name, false)
-//            }
+        viewModel.getLastClient()
+            .observe(viewLifecycleOwner) {
+                binding.searchViewClients.setQuery(it.name, false)
+            }
 
 
         binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
