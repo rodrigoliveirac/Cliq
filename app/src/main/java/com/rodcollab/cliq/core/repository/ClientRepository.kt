@@ -13,4 +13,6 @@ interface ClientRepository {
     )
 
     suspend fun fetchClients(): List<ClientDomain>
+
+    suspend fun fetchClient(clientId: String) : ClientDomain
 }

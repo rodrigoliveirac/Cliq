@@ -13,4 +13,12 @@ interface ClientDao {
 
     @Insert
     suspend fun insert(clientId: Client)
+
+    @Query(
+        """
+           SELECT * FROM client
+           WHERE uuid LIKE :clientId
+        """
+    )
+    suspend fun fetchClient(clientId: String): Client
 }

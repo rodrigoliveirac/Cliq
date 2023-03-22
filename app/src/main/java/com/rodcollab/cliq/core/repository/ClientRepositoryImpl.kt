@@ -38,4 +38,16 @@ class ClientRepositoryImpl @Inject constructor(private val dao: ClientDao) : Cli
         )
     }
 
+    override suspend fun fetchClient(clientId: String): ClientDomain {
+        val client = dao.fetchClient(clientId)
+        return ClientDomain(
+            id = client.uuid,
+            name = client.name,
+            lastName = client.lastName,
+            address = client.address,
+            phoneNumber = client.phoneNumber,
+            birthday = client.birthday
+        )
+    }
+
 }
