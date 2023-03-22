@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.rodcollab.cliq'
-    compileSdk 33
+    compileSdk rootProject.ext.sdkVersion
 
     defaultConfig {
         applicationId "com.rodcollab.cliq"
-        minSdk 24
-        targetSdk 33
+        minSdk rootProject.ext.minVersion
+        targetSdk rootProject.ext.targetVersion
         versionCode 1
         versionName "1.0"
 
@@ -42,25 +42,35 @@ android {
 }
 
 dependencies {
+    implementation libs.bundles.navigation
 
-    def room_version = "2.5.0"
-    def daggerHilt_version = "2.44.2"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.core.ktx
 
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+
+    implementation libs.material
+
+    testImplementation libs.androidx.junit.ktx
+    testImplementation libs.androidx.core.ktx.test
+    testImplementation libs.junit
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.kotlin
+    testImplementation libs.core.testing
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockk
+
+    androidTestImplementation libs.androidx.junit.ktx
+    androidTestImplementation libs.androidx.espresso.core
+
     implementation "androidx.fragment:fragment-ktx:1.5.5"
-    implementation 'androidx.navigation:navigation-fragment:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
-
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
+    implementation "androidx.cardview:cardview:1.0.0"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
 
     implementation "com.google.dagger:hilt-android:$daggerHilt_version"
     kapt "com.google.dagger:hilt-compiler:$daggerHilt_version"
