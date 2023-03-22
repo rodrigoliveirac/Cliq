@@ -1,13 +1,22 @@
 package com.rodcollab.cliq.collections.bookings.form
 
 import android.util.Log
-import androidx.lifecycle.*
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.rodcollab.cliq.collections.bookings.domain.GetLastClientNameUseCase
+import com.rodcollab.cliq.collections.bookings.domain.OnQueryTextChangeUseCase
+import com.rodcollab.cliq.collections.bookings.domain.OnSelectedClientUseCase
 import com.rodcollab.cliq.collections.clients.model.ClientItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchClientViewModel(
-    private val getClientsUseCase: GetClientsUseCase,
+@HiltViewModel
+class SearchClientViewModel @Inject constructor(
+    private val getOnSelectedClientUseCase: OnSelectedClientUseCase,
+    private val getLastClientNameUseCase: GetLastClientNameUseCase,
     private val onQueryTextChangeUseCase: OnQueryTextChangeUseCase,
 ) : ViewModel() {
 
@@ -20,22 +29,17 @@ class SearchClientViewModel(
     }
 
     private val lastClient: MutableLiveData<LastClient> by lazy {
-        MutableLiveData<LastClient>(LastClient(name = ""))
+        MutableLiveData<LastClient>()
     }
 
     data class LastClient(val name: String)
 
-    fun getLastClient() : LiveData<LastClient>  {
-        viewModelScope.launch {
-            lastClient.value?.let {
-                lastClient.value = if(getClientsUseCase().isEmpty()) {
-                    it.copy(name = "")
-                } else {
-                    it.copy(name = getClientsUseCase().last().name)
-                }
-            }
+    fun getLastClient(): LiveData<LastClient> {
 
+        viewModelScope.launch {
+            lastClient.postValue(LastClient(getLastClientNameUseCase()))
         }
+
         return lastClient
     }
 
@@ -45,6 +49,7 @@ class SearchClientViewModel(
     )
 
     fun clientSelected(): LiveData<ClientSelectedState> {
+        Log.d("clientSelected_", clientSelectedState.value.toString())
         return clientSelectedState
     }
 
@@ -54,16 +59,22 @@ class SearchClientViewModel(
 
     fun onQueryTextChange(query: String) {
         viewModelScope.launch {
-                uiState.postValue(UiState(onQueryTextChangeUseCase(query)))
+            uiState.postValue(UiState(onQueryTextChangeUseCase(query)))
         }
     }
 
     fun onItemClicked(id: String) {
         viewModelScope.launch {
-            val clientSelected = getClientsUseCase().first {
-                it.id == id
+
+            val clientSelected = getOnSelectedClientUseCase(id)
+
+            clientSelectedState.value?.let {
+                clientSelectedState.value = it.copy(
+                    wasSelected = true,
+                    clientSelected = clientSelected
+                )
             }
-            clientSelectedState.postValue(ClientSelectedState(true, clientSelected))
+
             Log.d("clientIdViewModelSearch", id)
         }
     }
@@ -75,16 +86,4 @@ class SearchClientViewModel(
     }
 
     data class UiState(val clientList: List<ClientItem>)
-
-
-    @Suppress("UNCHECKED_CAST")
-    class Factory(
-        private val getClientsUseCase: GetClientsUseCase,
-        private val onQueryTextChangeUseCase: OnQueryTextChangeUseCase
-    ) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SearchClientViewModel(getClientsUseCase, onQueryTextChangeUseCase) as T
-        }
-    }
 }

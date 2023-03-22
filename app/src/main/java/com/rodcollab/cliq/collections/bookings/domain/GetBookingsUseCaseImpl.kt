@@ -2,8 +2,9 @@ package com.rodcollab.cliq.collections.bookings.domain
 
 import com.rodcollab.cliq.collections.bookings.model.BookingItem
 import com.rodcollab.cliq.core.repository.BookingRepository
+import javax.inject.Inject
 
-class GetBookingsUseCaseImpl(
+class GetBookingsUseCaseImpl @Inject constructor(
     private val bookingsRepository: BookingRepository
 ) :
     GetBookingsUseCase {

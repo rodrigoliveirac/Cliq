@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -41,7 +42,6 @@ android {
 }
 
 dependencies {
-
     implementation libs.bundles.navigation
 
     implementation libs.androidx.appcompat
@@ -72,4 +72,12 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
 
+    implementation "com.google.dagger:hilt-android:$daggerHilt_version"
+    kapt "com.google.dagger:hilt-compiler:$daggerHilt_version"
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+}
+
+kapt {
+    correctErrorTypes true
 }

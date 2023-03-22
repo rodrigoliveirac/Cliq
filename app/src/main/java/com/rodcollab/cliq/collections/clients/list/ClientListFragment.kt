@@ -5,18 +5,17 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.cliq.R
 import com.rodcollab.cliq.collections.clients.adapters.ClientsAdapter
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
-import com.rodcollab.cliq.core.database.AppDatabase
-import com.rodcollab.cliq.core.repository.ClientRepositoryImpl
 import com.rodcollab.cliq.databinding.FragmentClientListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClientListFragment : Fragment() {
 
     private var _binding: FragmentClientListBinding? = null
@@ -25,15 +24,11 @@ class ClientListFragment : Fragment() {
 
     private lateinit var adapter: ClientsAdapter
 
-    private val viewModel: ClientListViewModel by activityViewModels {
-        val db = AppDatabase.getInstance(requireContext())
-        val clientRepository = ClientRepositoryImpl(db)
-        val getClientsUseCase = GetClientsUseCaseImpl(clientRepository)
-        ClientListViewModel.Factory(getClientsUseCase)
-    }
+    private lateinit var viewModel: ClientListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel  = ViewModelProvider(this)[ClientListViewModel::class.java]
         lifecycle.addObserver(ClientListLifecycleObserver(viewModel))
         adapter = ClientsAdapter()
     }
