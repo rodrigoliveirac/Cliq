@@ -1,11 +1,8 @@
 package com.rodcollab.cliq.collections.di
 
-import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCase
-import com.rodcollab.cliq.collections.bookings.domain.GetBookingsUseCaseImpl
-import com.rodcollab.cliq.collections.bookings.form.OnQueryTextChangeUseCase
-import com.rodcollab.cliq.collections.bookings.form.OnQueryTextChangeUseCaseImpl
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
-import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCaseImpl
+import com.rodcollab.cliq.collections.bookings.domain.*
+import com.rodcollab.cliq.collections.bookings.form.*
+import com.rodcollab.cliq.collections.clients.domain.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -27,4 +24,12 @@ abstract class CollectionsModule {
     @Singleton
     @Binds
     abstract fun providesOnQueryTextChangeUseCase(impl: OnQueryTextChangeUseCaseImpl): OnQueryTextChangeUseCase
+
+    @Singleton
+    @Binds
+    abstract fun providesOnSelectClientUseCase(impl: OnSelectedClientUseCaseImpl): OnSelectedClientUseCase
+
+    @Singleton
+    @Binds
+    abstract fun providesGetLastClientNameUseCase(impl: GetLastClientNameUseCaseImpl): GetLastClientNameUseCase
 }
