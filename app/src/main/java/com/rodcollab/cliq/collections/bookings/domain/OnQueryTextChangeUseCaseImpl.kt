@@ -1,9 +1,10 @@
-package com.rodcollab.cliq.collections.bookings.form
+package com.rodcollab.cliq.collections.bookings.domain
 
 import com.rodcollab.cliq.collections.clients.domain.GetClientsUseCase
 import com.rodcollab.cliq.collections.clients.model.ClientItem
+import javax.inject.Inject
 
-class OnQueryTextChangeUseCaseImpl(
+class OnQueryTextChangeUseCaseImpl @Inject constructor(
     private val getClientsUseCase: GetClientsUseCase,
 ) : OnQueryTextChangeUseCase {
 
