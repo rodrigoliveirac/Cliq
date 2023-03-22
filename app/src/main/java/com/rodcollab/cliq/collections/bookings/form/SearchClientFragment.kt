@@ -26,7 +26,7 @@ class SearchClientFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[SearchClientViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[SearchClientViewModel::class.java]
         adapter = SearchClientListAdapter(viewModel)
     }
 
@@ -87,10 +87,10 @@ class SearchClientFragment : Fragment() {
 
     private fun updateListAccordingToOnQueryChanged() {
 
-        viewModel.getLastClient()
-            .observe(viewLifecycleOwner) {
-                binding.searchViewClients.setQuery(it.name, false)
-            }
+//        viewModel.getLastClient()
+//            .observe(viewLifecycleOwner) {
+//                binding.searchViewClients.setQuery(it.name, false)
+//            }
 
 
         binding.searchViewClients.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

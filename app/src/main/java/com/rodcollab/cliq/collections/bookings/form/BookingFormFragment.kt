@@ -32,7 +32,7 @@ class BookingFormFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[BookingFormViewModel::class.java]
-        viewModelSearchClient = ViewModelProvider(this)[SearchClientViewModel::class.java]
+        viewModelSearchClient = ViewModelProvider(requireActivity())[SearchClientViewModel::class.java]
     }
 
     override fun onCreateView(
