@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.rodcollab.cliq.features.bookings.form'
+    compileSdk rootProject.ext.sdkVersion
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation project(":core:data")
+    implementation project(":core:ui")
+    implementation project(":utils:converters")
+    implementation project(":utils:formatters")
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+
+    implementation libs.bundles.navigation
+
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.core.ktx
+    implementation libs.material
+
+    coreLibraryDesugaring libs.desugar.jdk.libs
+}

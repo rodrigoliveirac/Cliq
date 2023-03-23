@@ -17,3 +17,11 @@ enableFeaturePreview("VERSION_CATALOGS")
 
 rootProject.name = "Cliq"
 include ':app'
+include ':core:data'
+include ':features:clients:form'
+include ':core:ui'
+include ':features:clients:collections'
+include ':features:bookings:form'
+include ':utils:converters'
+include ':utils:formatters'
+include ':features:bookings:collections'

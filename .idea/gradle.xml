@@ -12,6 +12,19 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/data" />
+            <option value="$PROJECT_DIR$/core/ui" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/bookings" />
+            <option value="$PROJECT_DIR$/features/bookings/collections" />
+            <option value="$PROJECT_DIR$/features/bookings/form" />
+            <option value="$PROJECT_DIR$/features/clients" />
+            <option value="$PROJECT_DIR$/features/clients/collections" />
+            <option value="$PROJECT_DIR$/features/clients/form" />
+            <option value="$PROJECT_DIR$/utils" />
+            <option value="$PROJECT_DIR$/utils/converters" />
+            <option value="$PROJECT_DIR$/utils/formatters" />
           </set>
         </option>
       </GradleProjectSettings>
