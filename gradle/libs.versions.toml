@@ -5,6 +5,8 @@ androidXCoreVersion = "1.9.0"
 androidXNavigationVersion = "2.5.3"
 androidXRoomVersion = "2.5.0"
 
+desugarJdkLibsVersion = "2.0.2"
+
 androidCoreTestingVersion = "1.1.1"
 
 hiltVersion = "2.44.2"
@@ -32,8 +34,8 @@ androidx-constraintlayout = { module = 'androidx.constraintlayout:constraintlayo
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidXCoreVersion" }
 
 androidx-core-ktx-test = { module = "androidx.test:core-ktx", version.ref = "androidXTestCoreVersion" }
-androidx-espresso-core = { module = 'androidx.test.expresso:espresso-core', version.ref = "androidXEspressoVersion" }
-androidx-junit-ktx = { module = 'androix.test.ext:junit-ktx', version.ref = "androidXTestJunitVersion" }
+androidx-espresso-core = { module = 'androidx.test.espresso:espresso-core', version.ref = "androidXEspressoVersion" }
+androidx-junit-ktx = { module = 'androidx.test.ext:junit-ktx', version.ref = "androidXTestJunitVersion" }
 androidx-navigation-fragment-ktx = { module = 'androidx.navigation:navigation-fragment-ktx', version.ref = "androidXNavigationVersion" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidXNavigationVersion" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidXRoomVersion"}
@@ -48,6 +50,8 @@ material = { module = "com.google.android.material:material", version.ref = "and
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCoreVersion"}
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin" , version.ref = "mockitKotlinVersion"}
 mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion"}
+
+desugar-jdk-libs = { module = 'com.android.tools:desugar_jdk_libs', version.ref = "desugarJdkLibsVersion"}
 
 [bundles]
 navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx"]

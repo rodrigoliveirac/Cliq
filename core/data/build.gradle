@@ -1,0 +1,20 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.rodcollab.cliq.core.data'
+    compileSdk rootProject.ext.sdkVersion
+}
+
+dependencies {
+
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+}

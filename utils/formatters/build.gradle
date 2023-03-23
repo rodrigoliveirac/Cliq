@@ -1,0 +1,23 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.rodcollab.cliq.utils.formatters'
+    compileSdk rootProject.ext.sdkVersion
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+    }
+
+    defaultConfig {
+        multiDexEnabled true
+    }
+
+}
+
+dependencies {
+
+    coreLibraryDesugaring libs.desugar.jdk.libs
+}

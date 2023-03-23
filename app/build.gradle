@@ -26,7 +26,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -42,14 +41,18 @@ android {
 }
 
 dependencies {
+
+    implementation project(":features:clients:collections")
+    implementation project(":features:clients:form")
+
+    implementation project(":features:bookings:collections")
+    implementation project(":features:bookings:form")
+
     implementation libs.bundles.navigation
 
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.core.ktx
-
-    implementation libs.androidx.room.ktx
-    kapt libs.androidx.room.compiler
 
     implementation libs.hilt.android
     kapt libs.hilt.compiler
@@ -71,7 +74,8 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.5.5"
     implementation "androidx.cardview:cardview:1.0.0"
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+
+
 }
 
 kapt {
