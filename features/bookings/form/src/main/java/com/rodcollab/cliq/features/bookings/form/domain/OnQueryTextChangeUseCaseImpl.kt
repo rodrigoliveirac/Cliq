@@ -3,7 +3,7 @@ package com.rodcollab.cliq.features.bookings.form.domain
 import com.rodcollab.cliq.features.bookings.form.model.ClientItem
 import javax.inject.Inject
 
-class OnQueryTextChangeUseCaseImpl @Inject constructor(
+internal class OnQueryTextChangeUseCaseImpl @Inject constructor(
     private val getClientsUseCase: GetClientsUseCase,
 ) : OnQueryTextChangeUseCase {
 

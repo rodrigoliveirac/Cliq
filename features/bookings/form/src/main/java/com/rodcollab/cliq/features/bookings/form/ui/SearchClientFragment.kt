@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodcollab.cliq.core.ui.R.*
-import com.rodcollab.cliq.features.bookings.form.databinding.FragmentSearchClientsBinding
 import com.rodcollab.cliq.features.bookings.form.Utils
+import com.rodcollab.cliq.features.bookings.form.databinding.FragmentSearchClientsBinding
 import com.rodcollab.cliq.features.bookings.form.ui.adapters.SearchClientListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 

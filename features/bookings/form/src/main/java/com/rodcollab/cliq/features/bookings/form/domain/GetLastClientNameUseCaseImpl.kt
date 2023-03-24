@@ -4,7 +4,7 @@ import com.rodcollab.core.data.repository.ClientRepository
 import com.rodcollab.cliq.features.bookings.form.model.ClientItem
 import javax.inject.Inject
 
-class GetLastClientNameUseCaseImpl @Inject constructor(private val clientRepository: ClientRepository) :
+internal class GetLastClientNameUseCaseImpl @Inject constructor(private val clientRepository: ClientRepository) :
     GetLastClientNameUseCase {
     override suspend fun invoke(): String {
         val clients = clientRepository.fetchClients().map {
