@@ -1,4 +1,4 @@
-package com.rodcollab.form.ui.adapters
+package com.rodcollab.cliq.features.bookings.form.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rodcollab.cliq.features.bookings.form.databinding.ItemSingleLineBinding
-import com.rodcollab.form.model.ClientItem
-import com.rodcollab.form.ui.SearchClientViewModel
+import com.rodcollab.cliq.features.bookings.form.model.ClientItem
+import com.rodcollab.cliq.features.bookings.form.ui.SearchClientViewModel
 
 class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
     RecyclerView.Adapter<SearchClientListAdapter.SearchClientListViewHolder>() {

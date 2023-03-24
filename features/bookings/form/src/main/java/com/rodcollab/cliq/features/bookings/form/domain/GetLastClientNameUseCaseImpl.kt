@@ -1,7 +1,7 @@
-package com.rodcollab.form.domain
+package com.rodcollab.cliq.features.bookings.form.domain
 
 import com.rodcollab.core.data.repository.ClientRepository
-import com.rodcollab.form.model.ClientItem
+import com.rodcollab.cliq.features.bookings.form.model.ClientItem
 import javax.inject.Inject
 
 class GetLastClientNameUseCaseImpl @Inject constructor(private val clientRepository: ClientRepository) :

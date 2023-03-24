@@ -1,4 +1,4 @@
-package com.rodcollab.form.ui
+package com.rodcollab.cliq.features.bookings.form.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle

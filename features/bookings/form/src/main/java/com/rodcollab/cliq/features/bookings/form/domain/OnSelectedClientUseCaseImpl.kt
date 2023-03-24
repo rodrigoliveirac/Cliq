@@ -1,6 +1,6 @@
-package com.rodcollab.form.domain
+package com.rodcollab.cliq.features.bookings.form.domain
 
-import com.rodcollab.form.model.ClientItem
+import com.rodcollab.cliq.features.bookings.form.model.ClientItem
 import javax.inject.Inject
 
 class OnSelectedClientUseCaseImpl @Inject constructor(

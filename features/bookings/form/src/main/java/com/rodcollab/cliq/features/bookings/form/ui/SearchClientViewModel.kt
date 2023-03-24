@@ -1,14 +1,14 @@
-package com.rodcollab.form.ui
+package com.rodcollab.cliq.features.bookings.form.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rodcollab.form.model.ClientItem
-import com.rodcollab.form.domain.GetLastClientNameUseCase
-import com.rodcollab.form.domain.OnQueryTextChangeUseCase
-import com.rodcollab.form.domain.OnSelectedClientUseCase
+import com.rodcollab.cliq.features.bookings.form.model.ClientItem
+import com.rodcollab.cliq.features.bookings.form.domain.GetLastClientNameUseCase
+import com.rodcollab.cliq.features.bookings.form.domain.OnQueryTextChangeUseCase
+import com.rodcollab.cliq.features.bookings.form.domain.OnSelectedClientUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

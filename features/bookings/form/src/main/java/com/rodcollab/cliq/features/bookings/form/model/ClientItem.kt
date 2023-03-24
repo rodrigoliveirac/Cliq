@@ -1,4 +1,4 @@
-package com.rodcollab.form.model
+package com.rodcollab.cliq.features.bookings.form.model
 
 data class ClientItem(
     val id: String,

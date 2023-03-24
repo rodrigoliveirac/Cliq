@@ -1,5 +1,6 @@
-package com.rodcollab.form.di
+package com.rodcollab.cliq.features.bookings.form.di
 
+import com.rodcollab.cliq.features.bookings.form.domain.*
 import com.rodcollab.form.domain.*
 import dagger.Binds
 import dagger.Module

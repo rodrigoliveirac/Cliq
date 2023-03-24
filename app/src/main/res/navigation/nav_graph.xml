@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/searchClientFragment"
-        android:name="com.rodcollab.cliq.features.bookings.form.SearchClientFragment"
+        android:name="com.rodcollab.cliq.features.bookings.form.ui.SearchClientFragment"
         android:label="@string/select_client">
         <action
             android:id="@id/action_searchClient_to_bookingForm"
@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/bookingFormFragment"
-        android:name="com.rodcollab.form.ui.BookingFormFragment"
+        android:name="com.rodcollab.cliq.features.bookings.form.ui.BookingFormFragment"
         android:label="@string/title_booking_form"
         tools:layout="@layout/fragment_booking_form">
     </fragment>

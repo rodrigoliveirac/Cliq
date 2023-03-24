@@ -1,4 +1,4 @@
-package com.rodcollab.form
+package com.rodcollab.cliq.features.bookings.form
 
 import android.content.Context
 import androidx.core.content.ContextCompat

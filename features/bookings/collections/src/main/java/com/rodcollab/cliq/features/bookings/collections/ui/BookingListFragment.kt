@@ -15,7 +15,6 @@ import com.rodcollab.cliq.features.bookings.collections.databinding.FragmentBook
 import com.rodcollab.cliq.features.bookings.collections.ui.adapters.BookingsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 
 @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
 @AndroidEntryPoint
@@ -71,7 +70,7 @@ class BookingListFragment : Fragment() {
         binding.date.setOnTouchListener { _, motionEvent ->
             if (MotionEvent.ACTION_UP == motionEvent.action) {
                 val builder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
-                    .setTextInputFormat(SimpleDateFormat(LocalDate.now().toString()))
+                    .setTextInputFormat(SimpleDateFormat("yyyy-MM-dd"))
 
                 val pickerDate = builder.build()
 
