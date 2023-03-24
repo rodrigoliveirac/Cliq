@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class CollectionsModule {
+internal abstract class ClientsModule {
 
     @Singleton
     @Binds

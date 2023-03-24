@@ -7,7 +7,6 @@
     <color name="primary_700">#425C6A</color>
     <color name="secondary_800">#F9AA33</color>
     <color name="secondary_700">#FCC13B</color>
-    <color name="dark">#3F2C57</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.rodcollab.cliq.core.ui.R.color
 import com.rodcollab.cliq.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,30 +33,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationView() {
         bottomNavigationView = binding.root.findViewById(R.id.navigationView)
-        setItemTextColor()
         addOnDestinationChangedListener()
-        setOnItemSelectedListener()
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
     }
 
-    private fun setOnItemSelectedListener() {
-        bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.clients -> {
-                    if (navController.currentDestination?.id == R.id.bookingListFragment)
-                        navController.navigate(R.id.action_bookingList_to_clientList)
-                }
-                else -> {
-                    if (navController.currentDestination?.id == R.id.clientListFragment)
-                        navController.navigate(R.id.action_clientList_to_bookingList)
-                }
-            }
-            true
-        }
-    }
-
-    private fun setItemTextColor() {
-        bottomNavigationView.itemTextColor = getColorStateList(color.dark)
-    }
 
     private fun addOnDestinationChangedListener() {
         navController.addOnDestinationChangedListener { controller, _, _ ->

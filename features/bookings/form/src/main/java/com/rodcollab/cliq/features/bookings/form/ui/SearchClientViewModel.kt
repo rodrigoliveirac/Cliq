@@ -44,7 +44,6 @@ class SearchClientViewModel @Inject constructor(
     }
 
     data class ClientSelectedState(
-        val wasSelected: Boolean,
         val clientSelected: ClientItem?
     )
 
@@ -68,15 +67,9 @@ class SearchClientViewModel @Inject constructor(
 
             val clientSelected = getOnSelectedClientUseCase(id)
 
-            clientSelectedState.postValue(ClientSelectedState(true, clientSelected))
+            clientSelectedState.postValue(ClientSelectedState(clientSelected))
 
             Log.d("clientIdViewModelSearch", id)
-        }
-    }
-
-    fun resetClientSelected() {
-        viewModelScope.launch {
-            clientSelectedState.postValue(ClientSelectedState(false, null))
         }
     }
 

@@ -131,7 +131,7 @@ class BookingFormFragment : Fragment() {
                 bookedDate = valueDateSelected
             }
             viewModel.addBooking(bookedClientId, bookedClientName, bookedClientAddress, bookedDate, bookedTime)
-            viewModelSearchClient.resetClientSelected()
+            //viewModelSearchClient.resetClientSelected()
             findNavController().navigateUp()
         }
     }

@@ -45,14 +45,11 @@
         <action
             android:id="@id/action_searchClient_to_bookingForm"
             app:destination="@id/bookingFormFragment"
-            app:popUpTo="@id/bookingListFragment"
-            app:popUpToInclusive="false"
             />
         <action
             android:id="@+id/action_searchClient_to_clientForm"
             app:destination="@id/clientFormFragment"
-            app:popUpTo="@id/searchClientFragment"
-            app:popUpToInclusive="false"
+
             />
     </fragment>
 

@@ -1,7 +1,6 @@
 package com.rodcollab.cliq.features.bookings.form.di
 
 import com.rodcollab.cliq.features.bookings.form.domain.*
-import com.rodcollab.form.domain.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,7 +9,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class BookingFormModule {
+internal abstract class BookingFormModule {
 
     @Singleton
     @Binds

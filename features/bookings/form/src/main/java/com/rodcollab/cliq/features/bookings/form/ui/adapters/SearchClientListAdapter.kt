@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rodcollab.cliq.features.bookings.form.databinding.ItemSingleLineBinding
 import com.rodcollab.cliq.features.bookings.form.model.ClientItem
-import com.rodcollab.cliq.features.bookings.form.ui.SearchClientViewModel
 
-class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
+class SearchClientListAdapter(private val onItemClick : (String) -> Unit) :
     RecyclerView.Adapter<SearchClientListAdapter.SearchClientListViewHolder>() {
 
 
@@ -20,16 +19,15 @@ class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
     }
 
     class SearchClientListViewHolder(
-        private val viewModel: SearchClientViewModel,
-        private val binding: ItemSingleLineBinding
+        private val binding: ItemSingleLineBinding,
+        private val onItemClick: (String) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ClientItem) = binding.apply {
             itemText.text = item.name
 
-            root.setOnClickListener {
-                viewModel.onItemClicked(item.id)
-            }
+            binding.root.setOnClickListener { onItemClick(item.id) }
+
         }
 
     }
@@ -37,7 +35,7 @@ class SearchClientListAdapter(private var viewModel: SearchClientViewModel) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchClientListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = ItemSingleLineBinding.inflate(layoutInflater)
-        return SearchClientListViewHolder(viewModel, view)
+        return SearchClientListViewHolder(view, onItemClick)
     }
 
     override fun getItemCount() = asyncListDif.currentList.size

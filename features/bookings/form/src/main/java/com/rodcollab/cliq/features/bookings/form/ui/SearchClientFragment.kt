@@ -29,7 +29,10 @@ class SearchClientFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SearchClientViewModel::class.java]
-        adapter = SearchClientListAdapter(viewModel)
+        adapter = SearchClientListAdapter { id ->
+            viewModel.onItemClicked(id)
+            findNavController().navigate(com.rodcollab.cliq.core.ui.R.id.action_searchClient_to_bookingForm)
+        }
     }
 
     override fun onCreateView(
@@ -49,11 +52,6 @@ class SearchClientFragment : Fragment() {
 
         setupSearchClientListAdapter()
         updateListAccordingToOnQueryChanged()
-        viewModel.clientSelected().observe(viewLifecycleOwner) {
-            if (it.wasSelected && it.clientSelected != null) {
-                findNavController().navigate(com.rodcollab.cliq.core.ui.R.id.action_searchClient_to_bookingForm)
-            }
-        }
     }
 
     private fun menuCreate() {
