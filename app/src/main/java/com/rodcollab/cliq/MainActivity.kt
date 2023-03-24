@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.rodcollab.cliq.core.ui.R.color
 import com.rodcollab.cliq.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupNavigation()
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationView() {
         bottomNavigationView = binding.root.findViewById(R.id.navigationView)
+        setItemTextColor()
         addOnDestinationChangedListener()
         setOnItemSelectedListener()
     }
@@ -49,6 +52,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun setItemTextColor() {
+        bottomNavigationView.itemTextColor = getColorStateList(color.dark)
     }
 
     private fun addOnDestinationChangedListener() {

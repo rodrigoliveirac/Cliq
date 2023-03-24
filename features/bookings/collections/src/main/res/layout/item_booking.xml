@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:background="@color/primary_700"
+                android:background="?android:attr/textColorSecondary"
                 android:orientation="vertical"
                 tools:orientation="vertical"/>
 
@@ -75,7 +75,6 @@
                 android:layout_marginBottom="8dp"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textColor="#1C1B1F"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@id/bookedAddressForm"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,12 +86,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bookedClientName"
-                tools:text="13 de março"/>
+                tools:text="Avenida Presidente Castelo Brasnco"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

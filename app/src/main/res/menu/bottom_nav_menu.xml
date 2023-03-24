@@ -4,7 +4,7 @@
         android:id="@+id/clients"
         android:icon="@drawable/ic_baseline_person_24"
         android:enabled="true"
-        android:title="@string/title_nav_clients" />
+        android:title="@string/title_nav_clients"/>
 
     <item
         android:id="@+id/bookings"
