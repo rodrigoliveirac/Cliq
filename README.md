@@ -22,6 +22,7 @@ CliqApp is a powerful tool that helps you register all your clients, save their 
 	
 ## Technologies
 This Project is created with:
+* *Unit Tests*
 * *Room*
 * *Dagger - Hilt*
 * *Coroutines*
@@ -44,7 +45,6 @@ This Project is created with:
 
 ## Next Steps
 * *Flow*
-* *Unit Tests*
 * *Instrumented Tests*
 * *Firebase(crashlytics/auth/cloud-storage)*
 * *Notifications*
