@@ -14,6 +14,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.rodcollab.cliq.core.ui.R.*
 import com.rodcollab.cliq.features.bookings.form.databinding.FragmentBookingFormBinding
 import com.rodcollab.cliq.utils.converters.Converter
 import dagger.hilt.android.AndroidEntryPoint
@@ -131,8 +132,8 @@ class BookingFormFragment : Fragment() {
                 bookedDate = valueDateSelected
             }
             viewModel.addBooking(bookedClientId, bookedClientName, bookedClientAddress, bookedDate, bookedTime)
-            //viewModelSearchClient.resetClientSelected()
-            findNavController().navigateUp()
+
+            findNavController().navigate(com.rodcollab.cliq.core.ui.R.id.action_bookingForm_to_bookingList)
         }
     }
 }
