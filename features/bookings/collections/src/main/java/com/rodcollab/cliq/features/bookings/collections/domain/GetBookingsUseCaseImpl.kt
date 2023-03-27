@@ -1,10 +1,11 @@
 package com.rodcollab.cliq.features.bookings.collections.domain
 
 import com.rodcollab.cliq.features.bookings.collections.model.BookingItem
+import com.rodcollab.core.data.repository.BookingRepository
 import javax.inject.Inject
 
 internal class GetBookingsUseCaseImpl @Inject constructor(
-    private val bookingsRepository: com.rodcollab.core.data.repository.BookingRepository
+    private val bookingsRepository: BookingRepository
 ) :
     GetBookingsUseCase {
 

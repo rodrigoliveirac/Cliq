@@ -5,4 +5,6 @@
     <item name="action_searchClient_to_bookingForm" type="id" />
     <item name="action_searchClient_to_clientForm" type="id" />
     <item name="action_bookingList_to_searchClientList" type="id" />
+    <item name="action_bookingForm_to_bookingList" type="id" />
+    <item name="searchClientFragment" type="id" />
 </resources>

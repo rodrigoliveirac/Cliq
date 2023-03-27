@@ -1,6 +1,7 @@
 package com.rodcollab.cliq.features.bookings.collections.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.MenuProvider
@@ -10,11 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.rodcollab.cliq.DateFormat
 import com.rodcollab.cliq.core.ui.R
 import com.rodcollab.cliq.features.bookings.collections.databinding.FragmentBookingListBinding
 import com.rodcollab.cliq.features.bookings.collections.ui.adapters.BookingsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
 @AndroidEntryPoint
@@ -56,15 +59,36 @@ class BookingListFragment : Fragment() {
     }
 
     private fun setupDateTextHeader() {
-        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) {
-            binding.date.text = it.textDate
+        viewModel.dateStateOnceAndStream().observe(viewLifecycleOwner) {
+            binding.date.text = formatText(requireContext(), it.textDate)
         }
 
-        binding.arrowBack.setOnClickListener { viewModel.onArrowBack(requireContext()) }
-        binding.arrowForward.setOnClickListener { viewModel.onArrowForward(requireContext()) }
+        binding.arrowBack.setOnClickListener { viewModel.onArrowBack() }
+        binding.arrowForward.setOnClickListener { viewModel.onArrowForward() }
 
         toSelectDate()
     }
+
+    private fun formatText(context: Context, datePicked: String): String {
+        return when (datePicked) {
+            DateFormat.localDateToString(now()) -> getStringForToday(context)
+            DateFormat.localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)
+            DateFormat.localDateToString(previousDayFromNow()) -> getStringForYesterday(context)
+            else -> datePicked
+        }
+    }
+
+    private fun getStringForYesterday(context: Context) = context.getString(R.string.yesterday)
+
+    private fun getStringForTomorrow(context: Context) = context.getString(R.string.tomorrow)
+
+    private fun getStringForToday(context: Context) = context.getString(R.string.today)
+
+    private fun previousDayFromNow() = now().minusDays(1)
+
+    private fun nextDayFromNow() = now().plusDays(1)
+
+    private fun now() = LocalDate.now()
 
     private fun toSelectDate() {
         binding.date.setOnTouchListener { _, motionEvent ->
@@ -78,7 +102,7 @@ class BookingListFragment : Fragment() {
 
                 pickerDate.addOnPositiveButtonClickListener {
                     val date = it as Long
-                    viewModel.pickDate(requireContext(), date)
+                    viewModel.pickDate(date)
                 }
             }
             true

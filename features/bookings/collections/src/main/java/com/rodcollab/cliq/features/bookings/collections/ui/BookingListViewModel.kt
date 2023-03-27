@@ -1,6 +1,5 @@
 package com.rodcollab.cliq.features.bookings.collections.ui
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,18 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.rodcollab.cliq.DateFormat.formatDate
 import com.rodcollab.cliq.DateFormat.localDateToString
 import com.rodcollab.cliq.DateFormat.toLocalDate
-import com.rodcollab.cliq.core.ui.R.string
 import com.rodcollab.cliq.features.bookings.collections.domain.GetBookingsUseCase
 import com.rodcollab.cliq.features.bookings.collections.model.BookingItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
 class BookingListViewModel @Inject constructor(
-    @ApplicationContext context: Context,
     private val getBookingUseCase: GetBookingsUseCase
 ) : ViewModel() {
 
@@ -27,8 +23,15 @@ class BookingListViewModel @Inject constructor(
         MutableLiveData<UiState>(
             UiState(
                 bookingList = emptyList(),
+            )
+        )
+    }
+
+    private val dateUiState: MutableLiveData<DateUiState> by lazy {
+        MutableLiveData<DateUiState>(
+            DateUiState(
                 currentDate = todayByDefault(),
-                textDate = getStringForToday(context)
+                textDate = todayByDefault()
             )
         )
     }
@@ -36,43 +39,32 @@ class BookingListViewModel @Inject constructor(
 
     private fun todayByDefault() = now().toString()
 
-    fun pickDate(context: Context, datePicked: Long) {
+    fun pickDate(datePicked: Long) {
 
         viewModelScope.launch {
             uiState.postValue(
                 UiState(
                     bookingList = getBookingUseCase(formatDate(datePicked)),
+                )
+            )
+            dateUiState.postValue(
+                DateUiState(
                     currentDate = formatDate(datePicked),
-                    textDate = formatText(context, localDateToString(toLocalDate(datePicked)))
+                    textDate = localDateToString(toLocalDate(datePicked))
                 )
             )
 
         }
     }
 
-    private fun formatText(context: Context, datePicked: String): String {
-        return when (datePicked) {
-            localDateToString(now()) -> getStringForToday(context)
-            localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)
-            localDateToString(previousDayFromNow()) -> getStringForYesterday(context)
-            else -> datePicked
-        }
-    }
-
-    private fun getStringForYesterday(context: Context) = context.getString(string.yesterday)
-
-    private fun getStringForTomorrow(context: Context) = context.getString(string.tomorrow)
-
-    private fun getStringForToday(context: Context) = context.getString(string.today)
-
-    private fun previousDayFromNow() = now().minusDays(1)
-
-    private fun nextDayFromNow() = now().plusDays(1)
-
     private fun now() = LocalDate.now()
 
     fun stateOnceAndStream(): LiveData<UiState> {
         return uiState
+    }
+
+    fun dateStateOnceAndStream(): LiveData<DateUiState> {
+        return dateUiState
     }
 
     fun onResume() {
@@ -81,46 +73,56 @@ class BookingListViewModel @Inject constructor(
         }
     }
 
-    private fun refreshBookingList() {
-        viewModelScope.launch {
-            uiState.postValue(
-                UiState(
-                    getBookingUseCase(uiState.value?.currentDate.toString()),
-                    currentDate = uiState.value?.currentDate.toString(),
-                    textDate = uiState.value?.textDate.toString()
-                )
+    private suspend fun refreshBookingList() {
+
+        uiState.postValue(
+            UiState(
+                getBookingUseCase(dateUiState.value?.currentDate.toString())
             )
-        }
+        )
+        dateUiState.postValue(
+            DateUiState(
+                currentDate = dateUiState.value?.currentDate.toString(),
+                textDate = dateUiState.value?.textDate.toString()
+            )
+        )
+
     }
 
-    fun onArrowForward(context: Context) {
+    fun onArrowForward() {
         viewModelScope.launch {
-            val localDate = LocalDate.parse(uiState.value?.currentDate.toString())
+            val localDate = LocalDate.parse(dateUiState.value?.currentDate.toString())
             uiState.postValue(
                 UiState(
                     bookingList = getBookingUseCase(
                         localDate.plusDays(1).toString()
                     ),
+
+                    )
+            )
+            dateUiState.postValue(
+                DateUiState(
                     currentDate = localDate.plusDays(1).toString(),
-                    textDate = formatText(context, localDateToString(localDate.plusDays(1)))
+                    textDate = localDateToString(localDate.plusDays(1))
                 )
             )
         }
     }
 
-    fun onArrowBack(context: Context) {
+    fun onArrowBack() {
         viewModelScope.launch {
-            val localDate = LocalDate.parse(uiState.value?.currentDate.toString())
+            val localDate = LocalDate.parse(dateUiState.value?.currentDate.toString())
             uiState.postValue(
                 UiState(
                     bookingList = getBookingUseCase(
                         localDate.minusDays(1).toString()
                     ),
+                )
+            )
+            dateUiState.postValue(
+                DateUiState(
                     currentDate = localDate.minusDays(1).toString(),
-                    textDate = formatText(
-                        context,
-                        localDateToString(localDate.minusDays(1))
-                    )
+                    textDate = localDateToString(localDate.minusDays(1))
                 )
             )
         }
@@ -128,6 +130,9 @@ class BookingListViewModel @Inject constructor(
 
     data class UiState(
         val bookingList: List<BookingItem>,
+    )
+
+    data class DateUiState(
         val currentDate: String,
         val textDate: String
     )
