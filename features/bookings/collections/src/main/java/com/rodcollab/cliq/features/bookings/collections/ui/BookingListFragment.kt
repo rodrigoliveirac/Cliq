@@ -58,7 +58,7 @@ class BookingListFragment : Fragment() {
 
     private fun setupDateTextHeader() {
         viewModel.dateStateOnceAndStream().observe(viewLifecycleOwner) {
-            binding.date.text = formatText(requireContext(), it.textDate)
+            binding.date.text = it.textDate
         }
 
         binding.arrowBack.setOnClickListener { viewModel.onArrowBack() }
@@ -66,27 +66,6 @@ class BookingListFragment : Fragment() {
 
         toSelectDate()
     }
-
-    private fun formatText(context: Context, datePicked: String): String {
-        return when (datePicked) {
-            DateFormat.localDateToString(now()) -> getStringForToday(context)
-            DateFormat.localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)
-            DateFormat.localDateToString(previousDayFromNow()) -> getStringForYesterday(context)
-            else -> datePicked
-        }
-    }
-
-    private fun getStringForYesterday(context: Context) = context.getString(R.string.yesterday)
-
-    private fun getStringForTomorrow(context: Context) = context.getString(R.string.tomorrow)
-
-    private fun getStringForToday(context: Context) = context.getString(R.string.today)
-
-    private fun previousDayFromNow() = now().minusDays(1)
-
-    private fun nextDayFromNow() = now().plusDays(1)
-
-    private fun now() = LocalDate.now()
 
     private fun toSelectDate() {
         binding.date.setOnTouchListener { _, motionEvent ->

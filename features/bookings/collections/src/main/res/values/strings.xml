@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="add_booking">add booking</string>
+    <string name="channel_id">BOOKINGS_CHANNEL</string>
+    <string name="channel_name">Bookings</string>
+    <string name="notification">Notification</string>
+    <string name="snooze">snooze</string>
 </resources>
