@@ -1,0 +1,485 @@
+Index: core/ui/src/main/res/menu/add_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <item\r\n        android:id=\"@id/overflowMenu\"\r\n        android:icon=\"@drawable/baseline_add_24\"\r\n        android:title=\"\"\r\n        app:showAsAction=\"always\">\r\n    </item>\r\n\r\n</menu>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/ui/src/main/res/menu/add_menu.xml b/core/ui/src/main/res/menu/add_menu.xml
+--- a/core/ui/src/main/res/menu/add_menu.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/core/ui/src/main/res/menu/add_menu.xml	(date 1680002787108)
+@@ -1,12 +1,21 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <menu xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto">
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:id="@id/overflowMenu"
++    android:icon="@drawable/baseline_more_vert_24">
+ 
+     <item
+-        android:id="@id/overflowMenu"
+-        android:icon="@drawable/baseline_add_24"
+-        android:title=""
+-        app:showAsAction="always">
++        android:id="@id/add_booking"
++        android:title="Add booking"
++        app:showAsAction="ifRoom">
++    </item>
++
++    <item
++        android:id="@id/select_all"
++        android:title="Select all"
++        app:showAsAction="ifRoom">
+     </item>
+ 
++
++
+ </menu>
+\ No newline at end of file
+Index: features/bookings/collections/src/main/res/layout/fragment_booking_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\">\r\n\r\n    <androidx.constraintlayout.widget.ConstraintLayout\r\n        android:id=\"@+id/constraint\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginBottom=\"16dp\"\r\n        android:layout_marginTop=\"16dp\"\r\n        android:layout_marginStart=\"16dp\"\r\n        android:layout_marginEnd=\"16dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintBottom_toTopOf=\"@id/bookingRecyclerView\"\r\n        app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n\r\n        <ImageView\r\n            android:id=\"@+id/arrow_back\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@drawable/baseline_arrow_back_ios_24\"\r\n            app:layout_constraintBottom_toBottomOf=\"@id/date\"\r\n            app:layout_constraintStart_toStartOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"@id/date\"\r\n            android:contentDescription=\"@string/arrow_back\">\r\n        </ImageView>\r\n\r\n        <ImageView\r\n            android:id=\"@+id/arrow_forward\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"@drawable/baseline_arrow_forward_ios_24\"\r\n            app:layout_constraintBottom_toBottomOf=\"@id/date\"\r\n            app:layout_constraintEnd_toEndOf=\"parent\"\r\n            app:layout_constraintTop_toTopOf=\"@id/date\"\r\n            android:contentDescription=\"@string/arrow_forward\">\r\n        </ImageView>\r\n\r\n        <com.google.android.material.textview.MaterialTextView\r\n            android:id=\"@+id/date\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:textSize=\"24sp\"\r\n            android:textStyle=\"bold\"\r\n            app:layout_constraintEnd_toStartOf=\"@id/arrow_forward\"\r\n            app:layout_constraintTop_toTopOf=\"parent\"\r\n            app:layout_constraintBottom_toBottomOf=\"parent\"\r\n            app:layout_constraintStart_toEndOf=\"@id/arrow_back\"\r\n            >\r\n        </com.google.android.material.textview.MaterialTextView>\r\n\r\n    </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/bookingRecyclerView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@id/constraint\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/bookings/collections/src/main/res/layout/fragment_booking_list.xml b/features/bookings/collections/src/main/res/layout/fragment_booking_list.xml
+--- a/features/bookings/collections/src/main/res/layout/fragment_booking_list.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/bookings/collections/src/main/res/layout/fragment_booking_list.xml	(date 1680003797350)
+@@ -63,4 +63,17 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/constraint" />
+ 
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="bottom|end"
++        android:layout_marginEnd="@dimen/fab_margin"
++        android:layout_marginBottom="16dp"
++        style="@style/Widget.Material3.FloatingActionButton.Primary"
++        android:contentDescription="add booking"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:srcCompat="@drawable/baseline_add_24" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/rodcollab/cliq/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.cliq\r\n\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.navigation.NavController\r\nimport androidx.navigation.findNavController\r\nimport androidx.navigation.ui.AppBarConfiguration\r\nimport androidx.navigation.ui.NavigationUI\r\nimport androidx.navigation.ui.setupActionBarWithNavController\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView\r\nimport com.rodcollab.cliq.databinding.ActivityMainBinding\r\nimport dagger.hilt.android.AndroidEntryPoint\r\n\r\n@AndroidEntryPoint\r\nclass MainActivity : AppCompatActivity() {\r\n\r\n    private lateinit var navController: NavController\r\n    private lateinit var binding: ActivityMainBinding\r\n    private lateinit var appBarConfiguration: AppBarConfiguration\r\n    private lateinit var bottomNavigationView: BottomNavigationView\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        binding = ActivityMainBinding.inflate(layoutInflater)\r\n\r\n        setContentView(binding.root)\r\n        setSupportActionBar(binding.toolbar)\r\n        setupNavigation()\r\n        setupBottomNavigationView()\r\n    }\r\n\r\n    private fun setupBottomNavigationView() {\r\n        bottomNavigationView = binding.root.findViewById(R.id.navigationView)\r\n        addOnDestinationChangedListener()\r\n        NavigationUI.setupWithNavController(bottomNavigationView, navController)\r\n    }\r\n\r\n\r\n    private fun addOnDestinationChangedListener() {\r\n        navController.addOnDestinationChangedListener { controller, _, _ ->\r\n            if (controller.currentDestination?.id == R.id.bookingListFragment || controller.currentDestination?.id == R.id.clientListFragment) {\r\n                bottomNavigationView.visibility = View.VISIBLE\r\n            } else {\r\n                bottomNavigationView.visibility = View.GONE\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun setupNavigation() {\r\n        navController = findNavController(R.id.nav_host_fragment_content_main)\r\n        appBarConfiguration =\r\n            AppBarConfiguration(\r\n                setOf(\r\n                    R.id.clientListFragment, R.id.bookingListFragment\r\n                )\r\n            )\r\n\r\n        setupActionBarWithNavController(navController, appBarConfiguration)\r\n    }\r\n\r\n    override fun onSupportNavigateUp(): Boolean {\r\n        navController =\r\n            findNavController(R.id.nav_host_fragment_content_main)\r\n        return navController.navigateUp() || super.onSupportNavigateUp()\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/rodcollab/cliq/MainActivity.kt b/app/src/main/java/com/rodcollab/cliq/MainActivity.kt
+--- a/app/src/main/java/com/rodcollab/cliq/MainActivity.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/app/src/main/java/com/rodcollab/cliq/MainActivity.kt	(date 1679999482364)
+@@ -32,7 +32,7 @@
+     }
+ 
+     private fun setupBottomNavigationView() {
+-        bottomNavigationView = binding.root.findViewById(R.id.navigationView)
++        bottomNavigationView = binding.root.findViewById(com.rodcollab.cliq.core.ui.R.id.navigationView)
+         addOnDestinationChangedListener()
+         NavigationUI.setupWithNavController(bottomNavigationView, navController)
+     }
+Index: features/clients/collections/src/main/res/layout/fragment_client_list.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\"com.rodcollab.clients.collections.ui.ClientListFragment\">\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/clientRecyclerView\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/collections/src/main/res/layout/fragment_client_list.xml b/features/clients/collections/src/main/res/layout/fragment_client_list.xml
+--- a/features/clients/collections/src/main/res/layout/fragment_client_list.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/clients/collections/src/main/res/layout/fragment_client_list.xml	(date 1680001398695)
+@@ -15,4 +15,17 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+ 
++    <com.google.android.material.floatingactionbutton.FloatingActionButton
++        android:id="@+id/fab"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="bottom|end"
++        android:layout_marginEnd="@dimen/fab_margin"
++        android:layout_marginBottom="16dp"
++        style="@style/Widget.Material3.FloatingActionButton.Primary"
++        android:contentDescription="add client"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:srcCompat="@drawable/baseline_add_24" />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: features/bookings/collections/src/main/java/com/rodcollab/cliq/features/bookings/collections/ui/BookingListFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.cliq.features.bookings.collections.ui\r\n\r\nimport android.annotation.SuppressLint\r\nimport android.content.Context\r\nimport android.os.Bundle\r\nimport android.view.*\r\nimport androidx.core.view.MenuProvider\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.Lifecycle\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport com.google.android.material.datepicker.MaterialDatePicker\r\nimport com.rodcollab.cliq.DateFormat\r\nimport com.rodcollab.cliq.core.ui.R\r\nimport com.rodcollab.cliq.features.bookings.collections.databinding.FragmentBookingListBinding\r\nimport com.rodcollab.cliq.features.bookings.collections.ui.adapters.BookingsAdapter\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport java.text.SimpleDateFormat\r\nimport java.time.LocalDate\r\n\r\n@SuppressLint(\"ClickableViewAccessibility\", \"SimpleDateFormat\")\r\n@AndroidEntryPoint\r\nclass BookingListFragment : Fragment() {\r\n\r\n    private var _binding: FragmentBookingListBinding? = null\r\n    private val binding get() = _binding!!\r\n\r\n    private lateinit var adapter: BookingsAdapter\r\n\r\n    private lateinit var viewModel: BookingListViewModel\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        viewModel = ViewModelProvider(this)[BookingListViewModel::class.java]\r\n        lifecycle.addObserver(BookingListLifecycleObserver(viewModel))\r\n        adapter = BookingsAdapter()\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        _binding = FragmentBookingListBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        setupDateTextHeader()\r\n\r\n        setupAdapter()\r\n\r\n        menuCreate()\r\n\r\n        observeList()\r\n    }\r\n\r\n    private fun setupDateTextHeader() {\r\n        viewModel.dateStateOnceAndStream().observe(viewLifecycleOwner) {\r\n            binding.date.text = formatText(requireContext(), it.textDate)\r\n        }\r\n\r\n        binding.arrowBack.setOnClickListener { viewModel.onArrowBack() }\r\n        binding.arrowForward.setOnClickListener { viewModel.onArrowForward() }\r\n\r\n        toSelectDate()\r\n    }\r\n\r\n    private fun formatText(context: Context, datePicked: String): String {\r\n        return when (datePicked) {\r\n            DateFormat.localDateToString(now()) -> getStringForToday(context)\r\n            DateFormat.localDateToString(nextDayFromNow()) -> getStringForTomorrow(context)\r\n            DateFormat.localDateToString(previousDayFromNow()) -> getStringForYesterday(context)\r\n            else -> datePicked\r\n        }\r\n    }\r\n\r\n    private fun getStringForYesterday(context: Context) = context.getString(R.string.yesterday)\r\n\r\n    private fun getStringForTomorrow(context: Context) = context.getString(R.string.tomorrow)\r\n\r\n    private fun getStringForToday(context: Context) = context.getString(R.string.today)\r\n\r\n    private fun previousDayFromNow() = now().minusDays(1)\r\n\r\n    private fun nextDayFromNow() = now().plusDays(1)\r\n\r\n    private fun now() = LocalDate.now()\r\n\r\n    private fun toSelectDate() {\r\n        binding.date.setOnTouchListener { _, motionEvent ->\r\n            if (MotionEvent.ACTION_UP == motionEvent.action) {\r\n                val builder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()\r\n                    .setTextInputFormat(SimpleDateFormat(\"yyyy-MM-dd\"))\r\n\r\n                val pickerDate = builder.build()\r\n\r\n                pickerDate.show(this.parentFragmentManager, \"DATE_PICKER\")\r\n\r\n                pickerDate.addOnPositiveButtonClickListener {\r\n                    val date = it as Long\r\n                    viewModel.pickDate(date)\r\n                }\r\n            }\r\n            true\r\n        }\r\n    }\r\n\r\n    private fun observeList() {\r\n        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->\r\n            bindUiState(uiState)\r\n        }\r\n    }\r\n\r\n    private fun setupAdapter() {\r\n        binding.bookingRecyclerView.layoutManager = LinearLayoutManager(requireContext())\r\n        binding.bookingRecyclerView.adapter = adapter\r\n    }\r\n\r\n    private fun menuCreate() {\r\n        val menuHost = requireActivity()\r\n        menuHost.addMenuProvider(object : MenuProvider {\r\n            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {\r\n                menuInflater.inflate(R.menu.add_menu, menu)\r\n            }\r\n\r\n            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {\r\n                if (menuItem.itemId == R.id.overflowMenu) {\r\n                    findNavController().navigate(R.id.action_bookingList_to_searchClientList)\r\n                    return true\r\n                }\r\n                return false\r\n            }\r\n        }, viewLifecycleOwner, Lifecycle.State.RESUMED)\r\n    }\r\n\r\n    private fun bindUiState(uiState: BookingListViewModel.UiState) {\r\n        adapter.submitList(uiState.bookingList)\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/bookings/collections/src/main/java/com/rodcollab/cliq/features/bookings/collections/ui/BookingListFragment.kt b/features/bookings/collections/src/main/java/com/rodcollab/cliq/features/bookings/collections/ui/BookingListFragment.kt
+--- a/features/bookings/collections/src/main/java/com/rodcollab/cliq/features/bookings/collections/ui/BookingListFragment.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/bookings/collections/src/main/java/com/rodcollab/cliq/features/bookings/collections/ui/BookingListFragment.kt	(date 1680004173084)
+@@ -4,9 +4,7 @@
+ import android.content.Context
+ import android.os.Bundle
+ import android.view.*
+-import androidx.core.view.MenuProvider
+ import androidx.fragment.app.Fragment
+-import androidx.lifecycle.Lifecycle
+ import androidx.lifecycle.ViewModelProvider
+ import androidx.navigation.fragment.findNavController
+ import androidx.recyclerview.widget.LinearLayoutManager
+@@ -53,7 +51,7 @@
+ 
+         setupAdapter()
+ 
+-        menuCreate()
++        fab()
+ 
+         observeList()
+     }
+@@ -120,21 +118,11 @@
+         binding.bookingRecyclerView.adapter = adapter
+     }
+ 
+-    private fun menuCreate() {
+-        val menuHost = requireActivity()
+-        menuHost.addMenuProvider(object : MenuProvider {
+-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+-                menuInflater.inflate(R.menu.add_menu, menu)
+-            }
++    private fun fab() {
+ 
+-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+-                if (menuItem.itemId == R.id.overflowMenu) {
+-                    findNavController().navigate(R.id.action_bookingList_to_searchClientList)
+-                    return true
+-                }
+-                return false
+-            }
+-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
++        binding.fab.setOnClickListener {
++            findNavController().navigate(R.id.action_bookingList_to_searchClientList)
++        }
+     }
+ 
+     private fun bindUiState(uiState: BookingListViewModel.UiState) {
+Index: app/src/main/res/layout/content_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    app:layout_behavior=\"@string/appbar_scrolling_view_behavior\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/nav_host_fragment_content_main\"\r\n        android:name=\"androidx.navigation.fragment.NavHostFragment\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:defaultNavHost=\"true\"\r\n        app:layout_constraintBottom_toTopOf=\"@id/navigationView\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:navGraph=\"@navigation/nav_graph\" />\r\n    <com.google.android.material.bottomnavigation.BottomNavigationView\r\n        android:id=\"@+id/navigationView\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:background=\"?android:attr/textColorSecondary\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:menu=\"@menu/bottom_nav_menu\"/>\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/content_main.xml b/app/src/main/res/layout/content_main.xml
+--- a/app/src/main/res/layout/content_main.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/app/src/main/res/layout/content_main.xml	(date 1680001822489)
+@@ -17,10 +17,10 @@
+         app:layout_constraintTop_toTopOf="parent"
+         app:navGraph="@navigation/nav_graph" />
+     <com.google.android.material.bottomnavigation.BottomNavigationView
+-        android:id="@+id/navigationView"
++        android:id="@id/navigationView"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:background="?android:attr/textColorSecondary"
++        style="@style/Widget.Material3.BottomNavigationView"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+Index: features/clients/collections/src/main/java/com/rodcollab/clients/collections/ui/ClientListFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.clients.collections.ui\r\n\r\nimport android.os.Bundle\r\nimport android.view.*\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.core.view.MenuProvider\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.Lifecycle\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.fragment.findNavController\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport com.google.android.material.divider.MaterialDividerItemDecoration\r\nimport com.rodcollab.clients.collections.ui.adapters.ClientsAdapter\r\nimport com.rodcollab.cliq.features.clients.collections.databinding.FragmentClientListBinding\r\nimport com.rodcollab.cliq.core.ui.R.color\r\nimport com.rodcollab.cliq.core.ui.R.dimen\r\nimport com.rodcollab.cliq.core.ui.R.id.action_clientList_to_clientForm\r\nimport com.rodcollab.cliq.core.ui.R.id.overflowMenu\r\nimport com.rodcollab.cliq.features.clients.collections.R\r\nimport dagger.hilt.android.AndroidEntryPoint\r\n\r\n@AndroidEntryPoint\r\nclass ClientListFragment : Fragment() {\r\n\r\n    private var _binding: FragmentClientListBinding? = null\r\n\r\n    private val binding get() = _binding!!\r\n\r\n    private lateinit var adapter: ClientsAdapter\r\n\r\n    private lateinit var viewModel: ClientListViewModel\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        viewModel = ViewModelProvider(this)[ClientListViewModel::class.java]\r\n        lifecycle.addObserver(ClientListLifecycleObserver(viewModel))\r\n        adapter = ClientsAdapter()\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        _binding = FragmentClientListBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        binding.clientRecyclerView.layoutManager = LinearLayoutManager(requireContext())\r\n        binding.clientRecyclerView.adapter = adapter\r\n\r\n        val menuHost = requireActivity()\r\n        menuHost.addMenuProvider(object : MenuProvider {\r\n            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {\r\n                menuInflater.inflate(com.rodcollab.cliq.core.ui.R.menu.add_menu, menu)\r\n            }\r\n\r\n            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {\r\n                if (menuItem.itemId == overflowMenu) {\r\n                    findNavController().navigate(action_clientList_to_clientForm)\r\n                    return true\r\n                }\r\n                return false\r\n            }\r\n        }, viewLifecycleOwner, Lifecycle.State.RESUMED)\r\n\r\n        addingDividerDecoration()\r\n\r\n        viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->\r\n            bindUiState(uiState)\r\n        }\r\n\r\n    }\r\n\r\n    private fun bindUiState(uiState: ClientListViewModel.UiState) {\r\n        adapter.submitList(uiState.clientList)\r\n    }\r\n\r\n    private fun addingDividerDecoration() {\r\n        // Adding Line between items with MaterialDividerItemDecoration\r\n        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)\r\n\r\n        // Removing the line at the end of the list\r\n        divider.isLastItemDecorated = false\r\n\r\n        val resources = requireContext().resources\r\n\r\n        // Adding start spacing\r\n        divider.dividerInsetStart = resources.getDimensionPixelSize(dimen.horizontal_margin)\r\n\r\n        // Defining size of the line\r\n        divider.dividerThickness = resources.getDimensionPixelSize(dimen.divider_height)\r\n        divider.dividerColor = ContextCompat.getColor(requireContext(), color.primary_200)\r\n\r\n        binding.clientRecyclerView.addItemDecoration(divider)\r\n    }\r\n\r\n//    private fun addingDividerSpace() {\r\n//        binding.clientRecyclerView.addItemDecoration(ClientListItemDecoration(requireContext()))\r\n//    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/collections/src/main/java/com/rodcollab/clients/collections/ui/ClientListFragment.kt b/features/clients/collections/src/main/java/com/rodcollab/clients/collections/ui/ClientListFragment.kt
+--- a/features/clients/collections/src/main/java/com/rodcollab/clients/collections/ui/ClientListFragment.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/clients/collections/src/main/java/com/rodcollab/clients/collections/ui/ClientListFragment.kt	(date 1680002909242)
+@@ -52,27 +52,16 @@
+         binding.clientRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+         binding.clientRecyclerView.adapter = adapter
+ 
+-        val menuHost = requireActivity()
+-        menuHost.addMenuProvider(object : MenuProvider {
+-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+-                menuInflater.inflate(com.rodcollab.cliq.core.ui.R.menu.add_menu, menu)
+-            }
+-
+-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+-                if (menuItem.itemId == overflowMenu) {
+-                    findNavController().navigate(action_clientList_to_clientForm)
+-                    return true
+-                }
+-                return false
+-            }
+-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+-
+         addingDividerDecoration()
+ 
+         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
+             bindUiState(uiState)
+         }
+ 
++        binding.fab.setOnClickListener {
++            findNavController().navigate(action_clientList_to_clientForm)
++        }
++
+     }
+ 
+     private fun bindUiState(uiState: ClientListViewModel.UiState) {
+Index: app/src/main/res/values/themes.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <!-- Base application theme. -->\r\n    <style name=\"Theme.App\" parent=\"Theme.Material3.DayNight\">\r\n        <!-- Primary brand color. -->\r\n        <item name=\"colorPrimary\">@color/primary_500</item>\r\n        <item name=\"colorPrimaryVariant\">@color/primary_700</item>\r\n        <item name=\"colorOnPrimary\">@color/white</item>\r\n        <!-- Secondary brand color. -->\r\n        <item name=\"colorSecondary\">@color/secondary_800</item>\r\n        <item name=\"colorSecondaryVariant\">@color/secondary_700</item>\r\n        <item name=\"colorOnSecondary\">@color/black</item>\r\n        <!-- Status bar color. -->\r\n        <item name=\"android:statusBarColor\">?attr/colorPrimaryVariant</item>\r\n        <!-- Customize your theme here. -->\r\n        <item name=\"colorSurface\">@color/white</item>\r\n        <item name=\"colorOnSurfaceVariant\">@color/primary_800</item>\r\n        <item name=\"shapeAppearanceMediumComponent\">@style/ShapeAppearance.App.MediumComponent</item>\r\n        <item name=\"colorOutline\">@color/primary_400</item>\r\n\r\n        <item name=\"floatingActionButtonStyle\">@style/Widget.App.FloatingActionButton</item>\r\n    </style>\r\n\r\n    <style name=\"Widget.App.FloatingActionButton\" parent=\"Widget.MaterialComponents.FloatingActionButton\">\r\n        <item name=\"materialThemeOverlay\">@style/ThemeOverlay.App.FloatingActionButton</item>\r\n        <item name=\"shapeAppearanceOverlay\">@style/ShapeAppearance.App.SmallComponent</item>\r\n    </style>\r\n\r\n    <style name=\"ThemeOverlay.App.FloatingActionButton\" parent=\"\">\r\n        <item name=\"colorSecondary\">@color/secondary_700</item>\r\n        <item name=\"colorOnSecondary\">@color/primary_800</item>\r\n        <item name=\"colorOnSurface\">@color/primary_800</item>\r\n    </style>\r\n\r\n    <style name=\"ShapeAppearance.App.MediumComponent\" parent=\"ShapeAppearance.Material3.MediumComponent\">\r\n        <item name=\"cornerFamily\">rounded</item>\r\n        <item name=\"cornerSize\">28dp</item>\r\n    </style>\r\n\r\n    <style name=\"ShapeAppearance.App.SmallComponent\" parent=\"ShapeAppearance.MaterialComponents.SmallComponent\">\r\n        <item name=\"cornerFamily\">rounded</item>\r\n        <item name=\"cornerSize\">28dp</item>\r\n    </style>\r\n\r\n    <style name=\"Theme.App.NoActionBar\">\r\n        <item name=\"windowActionBar\">false</item>\r\n        <item name=\"windowNoTitle\">true</item>\r\n    </style>\r\n\r\n    <style name=\"Theme.App.AppBarOverlay\" parent=\"ThemeOverlay.AppCompat.Dark.ActionBar\" />\r\n\r\n    <style name=\"Theme.App.PopupOverlay\" parent=\"ThemeOverlay.AppCompat.Light\" />\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+--- a/app/src/main/res/values/themes.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/app/src/main/res/values/themes.xml	(date 1680001822467)
+@@ -25,6 +25,11 @@
+         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
+     </style>
+ 
++    <style name="Widget.App.BottomNavigationView" parent="Base.Widget.Material3.BottomNavigationView">
++        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
++        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.SmallComponent</item>
++    </style>
++
+     <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+         <item name="colorSecondary">@color/secondary_700</item>
+         <item name="colorOnSecondary">@color/primary_800</item>
+@@ -33,12 +38,12 @@
+ 
+     <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+         <item name="cornerFamily">rounded</item>
+-        <item name="cornerSize">28dp</item>
++        <item name="cornerSize">16dp</item>
+     </style>
+ 
+     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+         <item name="cornerFamily">rounded</item>
+-        <item name="cornerSize">28dp</item>
++        <item name="cornerSize">16dp</item>
+     </style>
+ 
+     <style name="Theme.App.NoActionBar">
+Index: core/ui/src/main/res/values/ids.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <item name=\"overflowMenu\" type=\"id\" />\r\n    <item name=\"action_clientList_to_clientForm\" type=\"id\" />\r\n    <item name=\"action_searchClient_to_bookingForm\" type=\"id\" />\r\n    <item name=\"action_searchClient_to_clientForm\" type=\"id\" />\r\n    <item name=\"action_bookingList_to_searchClientList\" type=\"id\" />\r\n    <item name=\"action_bookingForm_to_bookingList\" type=\"id\" />\r\n    <item name=\"searchClientFragment\" type=\"id\" />\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/ui/src/main/res/values/ids.xml b/core/ui/src/main/res/values/ids.xml
+--- a/core/ui/src/main/res/values/ids.xml	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/core/ui/src/main/res/values/ids.xml	(date 1680003018822)
+@@ -7,4 +7,7 @@
+     <item name="action_bookingList_to_searchClientList" type="id" />
+     <item name="action_bookingForm_to_bookingList" type="id" />
+     <item name="searchClientFragment" type="id" />
++    <item name="navigationView" type="id" />
++    <item name="add_booking" type="id" />
++    <item name="select_all" type="id"/>
+ </resources>
+\ No newline at end of file
+Index: features/clients/form/src/main/java/com/rodcollab/form/ClientFormFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.form\r\n\r\nimport android.annotation.SuppressLint\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.MotionEvent\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.lifecycle.ViewModelProvider\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.google.android.material.datepicker.MaterialDatePicker\r\nimport com.rodcollab.cliq.features.clients.form.databinding.FragmentClientFormBinding\r\nimport dagger.hilt.android.AndroidEntryPoint\r\n\r\n@AndroidEntryPoint\r\nclass ClientFormFragment : Fragment() {\r\n\r\n    private var _binding: FragmentClientFormBinding? = null\r\n\r\n    private val binding get() = _binding!!\r\n\r\n    private lateinit var viewModel: ClientFormViewModel\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        viewModel = ViewModelProvider(this)[ClientFormViewModel::class.java]\r\n    }\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View {\r\n        _binding = FragmentClientFormBinding.inflate(inflater, container, false)\r\n        return binding.root\r\n    }\r\n\r\n    @SuppressLint(\"ClickableViewAccessibility\", \"SimpleDateFormat\")\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n\r\n        binding.clientBirthdayTextInputEditText.setOnTouchListener { _, motionEvent ->\r\n            if (MotionEvent.ACTION_UP == motionEvent.action) {\r\n                setupMaterialDatePicker()\r\n            }\r\n            true\r\n        }\r\n\r\n        binding.saveButton.setOnClickListener {\r\n\r\n            val clientName = binding.clientNameTextInput.editText?.text.toString()\r\n            val clientLastName = binding.clientLastNameTextInput.editText?.text.toString()\r\n            val clientAddress = binding.clientAddressTextInput.editText?.text.toString()\r\n            val clientPhoneNumber = binding.clientPhoneNumberTextInput.editText?.text.toString()\r\n            val clientBirthday = binding.clientBirthdayTextInput.editText?.text.toString()\r\n\r\n            viewModel.addClient(clientName, clientLastName, clientAddress, clientPhoneNumber, clientBirthday)\r\n\r\n            findNavController().navigateUp()\r\n        }\r\n    }\r\n\r\n    private fun setupMaterialDatePicker() {\r\n        val builderDatePicker: MaterialDatePicker.Builder<*> =\r\n            MaterialDatePicker.Builder.datePicker()\r\n\r\n        val pickerDate = builderDatePicker.build()\r\n        pickerDate.show(this.parentFragmentManager, \"DATE_PICKER\")\r\n\r\n        pickerDate.addOnDismissListener {\r\n            viewModel.saveValueDate(pickerDate.headerText)\r\n        }\r\n\r\n        pickerDate.addOnPositiveButtonClickListener {\r\n\r\n\r\n            viewModel.getValueDate.observe(viewLifecycleOwner) {\r\n                binding.clientBirthdayTextInputEditText.setText(it)\r\n            }\r\n        }\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        _binding = null\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/form/src/main/java/com/rodcollab/form/ClientFormFragment.kt b/features/clients/form/src/main/java/com/rodcollab/form/ClientFormFragment.kt
+--- a/features/clients/form/src/main/java/com/rodcollab/form/ClientFormFragment.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/clients/form/src/main/java/com/rodcollab/form/ClientFormFragment.kt	(date 1679971485978)
+@@ -10,6 +10,8 @@
+ import androidx.lifecycle.ViewModelProvider
+ import androidx.navigation.fragment.findNavController
+ import com.google.android.material.datepicker.MaterialDatePicker
++import com.google.android.material.snackbar.Snackbar
++import com.rodcollab.cliq.features.clients.form.R
+ import com.rodcollab.cliq.features.clients.form.databinding.FragmentClientFormBinding
+ import dagger.hilt.android.AndroidEntryPoint
+ 
+@@ -57,6 +59,7 @@
+             viewModel.addClient(clientName, clientLastName, clientAddress, clientPhoneNumber, clientBirthday)
+ 
+             findNavController().navigateUp()
++            Snackbar.make(requireActivity().findViewById(com.rodcollab.cliq.core.ui.R.id.navigationView), "$clientName foi cadastrado com sucesso", Snackbar.LENGTH_SHORT).show()
+         }
+     }
+ 
+Index: core/data/src/main/java/com/rodcollab/core/data/Callback.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/data/src/main/java/com/rodcollab/core/data/Callback.kt b/core/data/src/main/java/com/rodcollab/core/data/Callback.kt
+new file mode 100644
+--- /dev/null	(date 1679969811366)
++++ b/core/data/src/main/java/com/rodcollab/core/data/Callback.kt	(date 1679969811366)
+@@ -0,0 +1,13 @@
++package com.rodcollab.core.data
++
++interface Callback<T> {
++    fun onResult(result: Result<T>)
++}
++
++typealias SimpleResource = Resource<Unit>
++
++sealed class Resource<T>(val data: T? = null, val message: String? = null) {
++    class Loading<T>(data: T? = null) : Resource<T>(data)
++    class Success<T>(data: T?) : Resource<T>(data)
++    class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
++}
+\ No newline at end of file
+Index: core/data/src/main/java/com/rodcollab/core/data/Result.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/data/src/main/java/com/rodcollab/core/data/Result.kt b/core/data/src/main/java/com/rodcollab/core/data/Result.kt
+new file mode 100644
+--- /dev/null	(date 1679969669386)
++++ b/core/data/src/main/java/com/rodcollab/core/data/Result.kt	(date 1679969669386)
+@@ -0,0 +1,6 @@
++package com.rodcollab.core.data
++
++sealed class Result<T> {
++    data class Success<T>(val data: T) : Result<T>()
++    data class Error<T>(val error: Throwable) : Result<T>()
++}
+Index: core/data/src/main/java/com/rodcollab/core/data/repository/ClientRepositoryImpl.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.core.data.repository\r\n\r\nimport com.rodcollab.core.data.database.ClientDao\r\nimport com.rodcollab.core.data.database.entity.Client\r\nimport com.rodcollab.core.data.model.ClientDomain\r\nimport java.util.*\r\nimport javax.inject.Inject\r\n\r\nclass ClientRepositoryImpl @Inject constructor(private val dao: ClientDao) : ClientRepository {\r\n\r\n    override suspend fun add(\r\n        name: String,\r\n        lastName: String,\r\n        address: String,\r\n        phoneNumber: String,\r\n        birthday: String\r\n    ) {\r\n        val client = Client(\r\n            uuid = UUID.randomUUID().toString(),\r\n            name = name,\r\n            lastName = lastName,\r\n            address = address,\r\n            phoneNumber = phoneNumber,\r\n            birthday = birthday\r\n        )\r\n\r\n        dao.insert(client)\r\n    }\r\n\r\n    override suspend fun fetchClients() = dao.fetchAllClients().map {\r\n        ClientDomain(\r\n            id = it.uuid,\r\n            name = it.name,\r\n            lastName = it.lastName,\r\n            address = it.address,\r\n            phoneNumber = it.phoneNumber,\r\n            birthday = it.birthday\r\n        )\r\n    }\r\n\r\n    override suspend fun fetchClient(clientId: String): ClientDomain {\r\n        val client = dao.fetchClient(clientId)\r\n        return ClientDomain(\r\n            id = client.uuid,\r\n            name = client.name,\r\n            lastName = client.lastName,\r\n            address = client.address,\r\n            phoneNumber = client.phoneNumber,\r\n            birthday = client.birthday\r\n        )\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/data/src/main/java/com/rodcollab/core/data/repository/ClientRepositoryImpl.kt b/core/data/src/main/java/com/rodcollab/core/data/repository/ClientRepositoryImpl.kt
+--- a/core/data/src/main/java/com/rodcollab/core/data/repository/ClientRepositoryImpl.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/core/data/src/main/java/com/rodcollab/core/data/repository/ClientRepositoryImpl.kt	(date 1679970215026)
+@@ -1,13 +1,16 @@
+ package com.rodcollab.core.data.repository
+ 
++import com.rodcollab.core.data.Callback
+ import com.rodcollab.core.data.database.ClientDao
+ import com.rodcollab.core.data.database.entity.Client
+ import com.rodcollab.core.data.model.ClientDomain
++import kotlinx.coroutines.*
+ import java.util.*
+ import javax.inject.Inject
+ 
+ class ClientRepositoryImpl @Inject constructor(private val dao: ClientDao) : ClientRepository {
+ 
++    @OptIn(DelicateCoroutinesApi::class)
+     override suspend fun add(
+         name: String,
+         lastName: String,
+Index: features/clients/collections/src/test/java/com/rodcollab/clients/collections/TestGetClientUseCase.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/collections/src/test/java/com/rodcollab/clients/collections/TestGetClientUseCase.kt b/features/clients/collections/src/test/java/com/rodcollab/clients/collections/TestGetClientUseCase.kt
+new file mode 100644
+--- /dev/null	(date 1679668905021)
++++ b/features/clients/collections/src/test/java/com/rodcollab/clients/collections/TestGetClientUseCase.kt	(date 1679668905021)
+@@ -0,0 +1,20 @@
++package com.rodcollab.clients.collections
++
++import com.rodcollab.clients.TestClientRepository
++import com.rodcollab.clients.collections.domain.GetClientsUseCase
++import com.rodcollab.clients.collections.model.ClientItem
++
++class TestGetClientUseCase(
++    private val clientRepository : TestClientRepository
++) : GetClientsUseCase {
++    override suspend fun invoke(): List<ClientItem> {
++        return clientRepository.fetchClients().map {
++            ClientItem(
++                id = it.id,
++                name = it.name,
++                lastName =  it.lastName,
++                address = it.address
++            )
++        }
++    }
++}
+\ No newline at end of file
+Index: features/clients/form/src/main/java/com/rodcollab/form/ClientFormViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.rodcollab.form\r\n\r\nimport androidx.lifecycle.LiveData\r\nimport androidx.lifecycle.MutableLiveData\r\nimport androidx.lifecycle.ViewModel\r\nimport androidx.lifecycle.viewModelScope\r\nimport com.rodcollab.core.data.repository.ClientRepository\r\nimport dagger.hilt.android.lifecycle.HiltViewModel\r\nimport kotlinx.coroutines.launch\r\nimport javax.inject.Inject\r\n\r\n@HiltViewModel\r\nclass ClientFormViewModel @Inject constructor(\r\n    private val clientRepository: ClientRepository\r\n) : ViewModel() {\r\n\r\n    fun addClient(\r\n        name: String,\r\n        lastName: String,\r\n        address: String,\r\n        phoneNumber: String,\r\n        birthday: String\r\n    ) {\r\n        viewModelScope.launch {\r\n            clientRepository.add(\r\n                name, lastName, address, phoneNumber, birthday\r\n            )\r\n        }\r\n    }\r\n\r\n    private val _getValueDate: MutableLiveData<String> by lazy {\r\n        MutableLiveData<String>()\r\n    }\r\n    val getValueDate: LiveData<String> = _getValueDate\r\n\r\n    fun saveValueDate(headerText: String?) {\r\n        _getValueDate.value = headerText\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/form/src/main/java/com/rodcollab/form/ClientFormViewModel.kt b/features/clients/form/src/main/java/com/rodcollab/form/ClientFormViewModel.kt
+--- a/features/clients/form/src/main/java/com/rodcollab/form/ClientFormViewModel.kt	(revision 7183c51a1e222f0cb1735e665ab0a781aef9e6ab)
++++ b/features/clients/form/src/main/java/com/rodcollab/form/ClientFormViewModel.kt	(date 1679968931846)
+@@ -19,7 +19,7 @@
+         lastName: String,
+         address: String,
+         phoneNumber: String,
+-        birthday: String
++        birthday: String,
+     ) {
+         viewModelScope.launch {
+             clientRepository.add(
+Index: features/clients/form/src/main/java/com/rodcollab/form/Callback.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/form/src/main/java/com/rodcollab/form/Callback.kt b/features/clients/form/src/main/java/com/rodcollab/form/Callback.kt
+new file mode 100644
+--- /dev/null	(date 1679967488201)
++++ b/features/clients/form/src/main/java/com/rodcollab/form/Callback.kt	(date 1679967488201)
+@@ -0,0 +1,8 @@
++package com.rodcollab.form
++
++interface Callback<T> {
++    fun onResult(result: Result<T>)
++}
++
++
++
+Index: core/ui/src/main/res/drawable/baseline_more_vert_24.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/ui/src/main/res/drawable/baseline_more_vert_24.xml b/core/ui/src/main/res/drawable/baseline_more_vert_24.xml
+new file mode 100644
+--- /dev/null	(date 1680002372147)
++++ b/core/ui/src/main/res/drawable/baseline_more_vert_24.xml	(date 1680002372147)
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="#FFFFFF"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,10c-1.1,0 -2,0.9 -2,2s0.9,2 2,2 2,-0.9 2,-2 -0.9,-2 -2,-2zM12,16c-1.1,0 -2,0.9 -2,2s0.9,2 2,2 2,-0.9 2,-2 -0.9,-2 -2,-2z"/>
++</vector>
+Index: features/clients/form/src/main/java/com/rodcollab/form/Result.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/features/clients/form/src/main/java/com/rodcollab/form/Result.kt b/features/clients/form/src/main/java/com/rodcollab/form/Result.kt
+new file mode 100644
+--- /dev/null	(date 1679967488191)
++++ b/features/clients/form/src/main/java/com/rodcollab/form/Result.kt	(date 1679967488191)
+@@ -0,0 +1,6 @@
++package com.rodcollab.form
++
++sealed class Result<T> {
++    data class Success<T>(val data: T) : Result<T>()
++    data class Error<T>(val error: Throwable) : Result<T>()
++}
+\ No newline at end of file

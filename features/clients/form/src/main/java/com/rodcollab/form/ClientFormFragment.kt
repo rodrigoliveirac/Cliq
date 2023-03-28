@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
+import com.rodcollab.cliq.features.clients.form.R
 import com.rodcollab.cliq.features.clients.form.databinding.FragmentClientFormBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,6 +59,8 @@ class ClientFormFragment : Fragment() {
             viewModel.addClient(clientName, clientLastName, clientAddress, clientPhoneNumber, clientBirthday)
 
             findNavController().navigateUp()
+            Snackbar.make(requireActivity().findViewById(com.rodcollab.cliq.core.ui.R.id.navigationView), getString(
+                            R.string.client_successfully_registered), Snackbar.LENGTH_SHORT).show()
         }
     }
 

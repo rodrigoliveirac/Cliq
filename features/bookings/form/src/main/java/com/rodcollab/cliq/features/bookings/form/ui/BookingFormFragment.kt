@@ -12,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.rodcollab.cliq.core.ui.R.*
+import com.rodcollab.cliq.features.bookings.form.R
 import com.rodcollab.cliq.features.bookings.form.databinding.FragmentBookingFormBinding
 import com.rodcollab.cliq.utils.converters.Converter
 import dagger.hilt.android.AndroidEntryPoint
@@ -134,6 +136,9 @@ class BookingFormFragment : Fragment() {
             viewModel.addBooking(bookedClientId, bookedClientName, bookedClientAddress, bookedDate, bookedTime)
 
             findNavController().navigate(com.rodcollab.cliq.core.ui.R.id.action_bookingForm_to_bookingList)
+            Snackbar.make(requireActivity().findViewById(com.rodcollab.cliq.core.ui.R.id.navigationView), getString(
+                            R.string.booking_successfully_registered), Snackbar.LENGTH_SHORT).show()
+
         }
     }
 }
