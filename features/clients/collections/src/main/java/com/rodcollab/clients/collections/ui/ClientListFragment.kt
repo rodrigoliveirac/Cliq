@@ -1,22 +1,20 @@
 package com.rodcollab.clients.collections.ui
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.rodcollab.clients.collections.ui.adapters.ClientsAdapter
-import com.rodcollab.cliq.features.clients.collections.databinding.FragmentClientListBinding
 import com.rodcollab.cliq.core.ui.R.color
 import com.rodcollab.cliq.core.ui.R.dimen
 import com.rodcollab.cliq.core.ui.R.id.action_clientList_to_clientForm
-import com.rodcollab.cliq.core.ui.R.id.overflowMenu
-import com.rodcollab.cliq.features.clients.collections.R
+import com.rodcollab.cliq.features.clients.collections.databinding.FragmentClientListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,25 +50,14 @@ class ClientListFragment : Fragment() {
         binding.clientRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.clientRecyclerView.adapter = adapter
 
-        val menuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(com.rodcollab.cliq.core.ui.R.menu.add_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if (menuItem.itemId == overflowMenu) {
-                    findNavController().navigate(action_clientList_to_clientForm)
-                    return true
-                }
-                return false
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
         addingDividerDecoration()
 
         viewModel.stateOnceAndStream().observe(viewLifecycleOwner) { uiState ->
             bindUiState(uiState)
+        }
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(action_clientList_to_clientForm)
         }
 
     }

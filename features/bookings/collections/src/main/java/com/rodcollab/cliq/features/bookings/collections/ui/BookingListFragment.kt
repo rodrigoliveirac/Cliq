@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,7 +51,7 @@ class BookingListFragment : Fragment() {
 
         setupAdapter()
 
-        menuCreate()
+        fab()
 
         observeList()
     }
@@ -120,21 +118,10 @@ class BookingListFragment : Fragment() {
         binding.bookingRecyclerView.adapter = adapter
     }
 
-    private fun menuCreate() {
-        val menuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.add_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if (menuItem.itemId == R.id.overflowMenu) {
-                    findNavController().navigate(R.id.action_bookingList_to_searchClientList)
-                    return true
-                }
-                return false
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    private fun fab() {
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_bookingList_to_searchClientList)
+        }
     }
 
     private fun bindUiState(uiState: BookingListViewModel.UiState) {
